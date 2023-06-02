@@ -85,7 +85,6 @@ export class UserService {
       where: {
         refreshToken: body.refreshToken,
       },
-      relations: ['roles'],
     });
 
     if (!user) {

@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './global/auth/guards/jwt-auth.guard';
 import { RolesGuard } from './global/auth/guards/roles.guard';
 
-import { UserModule } from './modules/user/user.module';
 import { EConfiguration } from './core/config/configuration.config';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
