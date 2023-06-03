@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Req } from '@nestjs/common';
 import { Public } from 'src/decorator/public.decorator';
 import { FoodService } from './food.service';
+import e from 'express';
 
 @Controller('food')
 export class FoodController {
@@ -8,28 +9,20 @@ export class FoodController {
 
   @Public()
   @Get('/all')
-  getAllFood() {
-    return this.foodService.getAllFood();
-  }
-
-
-  @Public()
-  @Get('/filterCheap')
-  filterFoodByCheapPrice() {
-    return this.foodService.filterFoodByCheapPrice();
+  async getAllFood() {
+    return await this.foodService.getAllFood();
   }
 
   @Public()
-  @Get('/filterFood')
-  filterFood() {
-    return this.foodService.filterFood();
+  @Get('/filter/:isFood/:maxPrice')
+  async getFoods(
+    @Param('isFood') isFood: boolean,
+    @Param('maxPrice') maxPrice: number,
+  ) {
+    return await this.foodService.getFoods(isFood, maxPrice);
+  }  
+    
   }
-
-  @Public()
-  @Get('/filterDrink')
-  filterDrink() {
-    return this.foodService.filterDrink();
-  }
+  
 
 
-}

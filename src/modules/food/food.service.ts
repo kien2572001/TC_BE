@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Param } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Food } from 'src/database/entity/food.entity';
 import { LessThan, Repository } from 'typeorm';
@@ -15,27 +15,17 @@ export class FoodService {
         return await this.foodRepository.find();
       }
 
-    async filterFoodByCheapPrice() {
+    
+      async getFoods(
+        @Param('isFood') isFood: boolean,
+        @Param('maxPrice') maxPrice: number,
+        ) {
         return await this.foodRepository.find({
-            where: {
-                price: LessThan(40000)
-            }
-        })
+          where: {
+            isFood: isFood,
+            price: LessThan(maxPrice),
+          },
+        });
     }
-
-    async filterFood(){
-        return await this.foodRepository.find({
-            where: {
-                isFood: true
-            }
-        })
-    }
-
-    async filterDrink(){
-        return await this.foodRepository.find({
-            where: {
-                isFood: false
-            }
-        })
-    }
+    
 }
