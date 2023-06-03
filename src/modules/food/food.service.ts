@@ -18,7 +18,23 @@ export class FoodService {
     async filterFoodByCheapPrice() {
         return await this.foodRepository.find({
             where: {
-                price: LessThan(20)
+                price: LessThan(40000)
+            }
+        })
+    }
+
+    async filterFood(){
+        return await this.foodRepository.find({
+            where: {
+                isFood: true
+            }
+        })
+    }
+
+    async filterDrink(){
+        return await this.foodRepository.find({
+            where: {
+                isFood: false
             }
         })
     }

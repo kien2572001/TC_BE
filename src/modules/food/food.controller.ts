@@ -14,9 +14,22 @@ export class FoodController {
 
 
   @Public()
-  @Get('/cheap')
+  @Get('/filterCheap')
   filterFoodByCheapPrice() {
     return this.foodService.filterFoodByCheapPrice();
   }
+
+  @Public()
+  @Get('/filterFood')
+  filterFood() {
+    return this.foodService.filterFood();
+  }
+
+  @Public()
+  @Get('/filterDrink')
+  filterDrink() {
+    return this.foodService.filterDrink();
+  }
+
 
 }
