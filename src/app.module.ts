@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, Res } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -9,6 +9,8 @@ import { RolesGuard } from './global/auth/guards/roles.guard';
 
 import { EConfiguration } from './core/config/configuration.config';
 import { UserModule } from './modules/user/user.module';
+import { RestaurantModule } from './modules/restaurant/restaurant.module';
+import { FoodModule } from './modules/food/food.module';
 
 @Module({
   imports: [
@@ -33,6 +35,8 @@ import { UserModule } from './modules/user/user.module';
       }),
     }),
     UserModule,
+    RestaurantModule,
+    FoodModule,
   ],
   controllers: [AppController],
   providers: [
