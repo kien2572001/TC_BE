@@ -45,7 +45,9 @@ export class UserService {
 
     userRegister.password = hashPassword;
     userRegister.role = ERole.USER;
-    return await this.userRepository.save(userRegister);
+    const newUser = await this.userRepository.save(userRegister);
+    delete newUser.password;
+    return newUser;
   }
 
   async userLogin(userLogin: VUserLoginDto) {
