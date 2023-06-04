@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, Res } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -6,10 +6,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { JwtAuthGuard } from './global/auth/guards/jwt-auth.guard';
 import { RolesGuard } from './global/auth/guards/roles.guard';
-
 import { EConfiguration } from './core/config/configuration.config';
 import { UserModule } from './modules/user/user.module';
 import { RestaurantModule } from './modules/restaurant/restaurant.module';
+import { FoodModule } from './modules/food/food.module';
+import { ReviewModule } from './modules/review/review.module';
 
 @Module({
   imports: [
@@ -27,7 +28,7 @@ import { RestaurantModule } from './modules/restaurant/restaurant.module';
         password: configService.get(EConfiguration.DB_POSTGRESQL_PASSWORD),
         database: configService.get(EConfiguration.DB_POSTGRESQL_NAME),
         entities: [__dirname + '/**/*.entity.{ts,js}'],
-        synchronize: true,
+        synchronize: false,
         autoLoadEntities: true,
         migrations: ['src/migration/**/*.ts'],
         subscribers: ['src/subscriber/**/*.ts'],
@@ -35,6 +36,8 @@ import { RestaurantModule } from './modules/restaurant/restaurant.module';
     }),
     UserModule,
     RestaurantModule,
+    FoodModule,
+    ReviewModule,
   ],
   controllers: [AppController],
   providers: [

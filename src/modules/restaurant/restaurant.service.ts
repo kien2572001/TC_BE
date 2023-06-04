@@ -16,6 +16,9 @@ export class RestaurantService {
     @InjectRepository(Restaurant)
     private restaurantRepository: Repository<Restaurant>,
   ) {}
+  async getAllRestaurant() {
+    return await this.restaurantRepository.find();
+  }
 
   async getRestaurantByName(
     query: V1GetRestaurantByNameParamDto,
