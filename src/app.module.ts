@@ -9,6 +9,7 @@ import { RolesGuard } from './global/auth/guards/roles.guard';
 
 import { EConfiguration } from './core/config/configuration.config';
 import { UserModule } from './modules/user/user.module';
+import { RestaurantModule } from './modules/restaurant/restaurant.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { UserModule } from './modules/user/user.module';
       }),
     }),
     UserModule,
+    RestaurantModule,
   ],
   controllers: [AppController],
   providers: [
