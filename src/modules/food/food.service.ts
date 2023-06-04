@@ -20,12 +20,29 @@ export class FoodService {
         @Param('isFood') isFood: boolean,
         @Param('maxPrice') maxPrice: number,
         ) {
-        return await this.foodRepository.find({
-          where: {
-            isFood: isFood,
-            price: LessThan(maxPrice),
-          },
-        });
+        if (isFood && maxPrice) {
+            return await this.foodRepository.find({
+                where: {
+                isFood: isFood,
+                price: LessThan(maxPrice),
+                },
+            });
+            }
+        if (isFood) {
+            return await this.foodRepository.find({
+                where: {
+                isFood: isFood,
+                },
+            });
+            }
+        if (maxPrice) {
+            return await this.foodRepository.find({
+                where: {
+                price: LessThan(maxPrice),
+                },
+            });
+            }
+        return await this.foodRepository.find();
     }
     
 }

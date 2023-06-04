@@ -14,7 +14,7 @@ export class FoodController {
   }
 
   @Public()
-  @Get('/filter/:isFood/:maxPrice')
+  @Get('/filter/:isFood?/:maxPrice?')
   async getFoods(
     @Param('isFood') isFood: boolean,
     @Param('maxPrice') maxPrice: number,
