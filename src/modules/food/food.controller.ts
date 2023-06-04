@@ -14,15 +14,14 @@ export class FoodController {
   }
 
   @Public()
-  @Get('/filter/:isFood?/:maxPrice?')
+  @Get('/filter')
   async getFoods(
-    @Param('isFood') isFood: boolean,
-    @Param('maxPrice') maxPrice: number,
+    @Query('isFood') isFood: boolean,
+    @Query('cheap') cheap: boolean,
+    @Query('highRating') highRating: boolean,
   ) {
-    return await this.foodService.getFoods(isFood, maxPrice);
-  }  
-    
+    return await this.foodService.getFoods(isFood, cheap, highRating);
   }
+
   
-
-
+}

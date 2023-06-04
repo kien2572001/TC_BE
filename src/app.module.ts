@@ -11,6 +11,7 @@ import { EConfiguration } from './core/config/configuration.config';
 import { UserModule } from './modules/user/user.module';
 import { RestaurantModule } from './modules/restaurant/restaurant.module';
 import { FoodModule } from './modules/food/food.module';
+import { ReviewModule } from './modules/review/review.module';
 
 @Module({
   imports: [
@@ -28,7 +29,7 @@ import { FoodModule } from './modules/food/food.module';
         password: configService.get(EConfiguration.DB_POSTGRESQL_PASSWORD),
         database: configService.get(EConfiguration.DB_POSTGRESQL_NAME),
         entities: [__dirname + '/**/*.entity.{ts,js}'],
-        synchronize: false,
+        synchronize: true,
         autoLoadEntities: true,
         migrations: ['src/migration/**/*.ts'],
         subscribers: ['src/subscriber/**/*.ts'],
@@ -37,6 +38,7 @@ import { FoodModule } from './modules/food/food.module';
     UserModule,
     RestaurantModule,
     FoodModule,
+    ReviewModule,
   ],
   controllers: [AppController],
   providers: [
