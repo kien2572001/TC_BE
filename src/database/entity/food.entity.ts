@@ -24,7 +24,6 @@ export class Food {
   @Column({ name: 'is_food', type: 'boolean' })
   isFood: boolean;
 
-
   @OneToMany(() => Review, (review) => review.food)
   reviews: Review[];
 }

@@ -6,7 +6,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { JwtAuthGuard } from './global/auth/guards/jwt-auth.guard';
 import { RolesGuard } from './global/auth/guards/roles.guard';
-
 import { EConfiguration } from './core/config/configuration.config';
 import { UserModule } from './modules/user/user.module';
 import { RestaurantModule } from './modules/restaurant/restaurant.module';
@@ -29,7 +28,7 @@ import { ReviewModule } from './modules/review/review.module';
         password: configService.get(EConfiguration.DB_POSTGRESQL_PASSWORD),
         database: configService.get(EConfiguration.DB_POSTGRESQL_NAME),
         entities: [__dirname + '/**/*.entity.{ts,js}'],
-        synchronize: true,
+        synchronize: false,
         autoLoadEntities: true,
         migrations: ['src/migration/**/*.ts'],
         subscribers: ['src/subscriber/**/*.ts'],
