@@ -14,6 +14,12 @@ export class FoodController {
   }
 
   @Public()
+  @Get('/search')
+  getFoodByName(@Query() query): Promise<any> {
+    return this.foodService.getFoodByName(query);
+  }
+
+  @Public()
   @Get('/filter')
   async getFoods(
     @Query('isFood') isFood: boolean,
@@ -22,6 +28,4 @@ export class FoodController {
   ) {
     return await this.foodService.getFoods(isFood, cheap, highRating);
   }
-
-  
 }
