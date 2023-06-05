@@ -5,6 +5,11 @@ import { LessThan, MoreThanOrEqual, Repository, Raw, Like } from 'typeorm';
 import { ReviewService } from '../review/review.service';
 import { Review } from 'src/database/entity/review.entity';
 import { Restaurant } from 'src/database/entity/restaurant.entity';
+import { V1GetFoodsByNameParamDto } from './dto/get-foods-by-name.dto';
+import {
+  V1FoodByName,
+  V1FoodDetailByName,
+} from './entities/get-foods-by-name.entity';
 @Injectable()
 export class FoodService {
   constructor(
@@ -51,7 +56,7 @@ export class FoodService {
     return await queryBuilder.getMany();
   }
 
-  async getFoodByName(query: { name: string }): Promise<any> {
+  async getFoodByName(query: V1GetFoodsByNameParamDto): Promise<V1FoodByName> {
     const { name } = query;
 
     const foodRaw = await this.foodRepository.find({
@@ -60,7 +65,7 @@ export class FoodService {
       },
     });
 
-    const result = await Promise.all(
+    const dataRaw = await Promise.all(
       foodRaw.map(async (food) => {
         const restaurant = await this.restaurantRepository.findOne({
           where: {
@@ -80,6 +85,39 @@ export class FoodService {
       }),
     );
 
+    const foods: V1FoodDetailByName[] = dataRaw.map((food) => {
+      return {
+        id: food.id,
+        name: food.name,
+        price: food.price,
+        isDraft: food.isDraft,
+        photoUrl: food.photoUrl,
+        isFood: food.isFood,
+        restaurant: {
+          id: food.restaurant.id,
+          name: food.restaurant.name,
+          address: food.restaurant.address,
+          photoUrl: food.restaurant.photoUrl,
+          activeTime: food.restaurant.activeTime,
+          isDraft: food.restaurant.isDraft,
+        },
+        reviews: food.reviews.map((review) => {
+          return {
+            id: review.id,
+            rate: review.rate,
+            content: review.content,
+            foodId: review.foodId,
+            restaurantId: review.restaurantId,
+            userId: review.userId,
+          };
+        }),
+      };
+    });
+
+    const result: V1FoodByName = {
+      foods,
+      total: foods.length,
+    };
     return result;
   }
 }
