@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Param, Post, Query, Req } from '@nestjs/common';
 import { Public } from 'src/decorator/public.decorator';
 import { FoodService } from './food.service';
-import e from 'express';
 
-@Controller('food')
+
+@Controller('foods')
 export class FoodController {
   constructor(private readonly foodService: FoodService) {}
 
@@ -21,11 +21,7 @@ export class FoodController {
 
   @Public()
   @Get('/filter')
-  async getFoods(
-    @Query('isFood') isFood: boolean,
-    @Query('cheap') cheap: boolean,
-    @Query('highRating') highRating: boolean,
-  ) {
-    return await this.foodService.getFoods(isFood, cheap, highRating);
+  async getFoods(@Query() query): Promise<any> {
+    return await this.foodService.getFoods(query);
   }
 }
