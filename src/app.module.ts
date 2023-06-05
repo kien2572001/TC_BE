@@ -28,7 +28,7 @@ import { ReviewModule } from './modules/review/review.module';
         password: configService.get(EConfiguration.DB_POSTGRESQL_PASSWORD),
         database: configService.get(EConfiguration.DB_POSTGRESQL_NAME),
         entities: [__dirname + '/**/*.entity.{ts,js}'],
-        synchronize: true,
+        synchronize: false,
         autoLoadEntities: true,
         migrations: ['src/migration/**/*.ts'],
         subscribers: ['src/subscriber/**/*.ts'],
