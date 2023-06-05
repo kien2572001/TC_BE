@@ -75,6 +75,7 @@ export class UserService {
     const authUserData: IResponseAuthUser = {
       id: user.id,
       email: user.email,
+      avatar: user.avatar,
       name: user.name,
       role: user.role,
     };
@@ -99,6 +100,7 @@ export class UserService {
     const authUserData: IResponseAuthUser = {
       id: user.id,
       email: user.email,
+      avatar: user.avatar,
       name: user.name,
       role: user.role,
     };

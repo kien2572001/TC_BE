@@ -3,6 +3,7 @@ import { ERole } from 'src/core/enum/default.enum';
 export interface IResponseAuthUser {
   id: number;
   name: string;
+  avatar: string;
   email: string;
   role: ERole;
 }
