@@ -4,7 +4,7 @@ import { Public } from 'src/decorator/public.decorator';
 import { RestaurantService } from './restaurant.service';
 import { V1GetRestaurantByName } from './entities/get-restaurant-by-name.entity';
 
-@Controller('restaurant')
+@Controller('restaurants')
 export class RestaurantController {
   constructor(private readonly restaurantService: RestaurantService) {}
 
@@ -14,8 +14,10 @@ export class RestaurantController {
     return 'This action returns all cats';
   }
 
+  @Public()
   @Get('/all')
-  getAllRestaurant() {
+  getAllRestaurant()
+  : Promise<V1GetRestaurantByName> {
     return this.restaurantService.getAllRestaurant();
   }
 

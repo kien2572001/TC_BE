@@ -20,23 +20,24 @@ export class FoodService {
     return await this.foodRepository.find();
   }
 
-  async getFoods(
-    @Query('isFood') isFood: boolean,
-    @Query('cheap') cheap: boolean,
-    @Query('highRating') highRating: boolean,
-  ): Promise<Food[]> {
-    const query = this.foodRepository.createQueryBuilder('food');
+  async getFoods(query: {
+    isFood: boolean;
+    cheap: boolean;
+    highRating: boolean;
+  }): Promise<Food[]> {
+    const queryBuilder = this.foodRepository.createQueryBuilder('food');
+    const { isFood, cheap, highRating } = query;
 
     if (isFood) {
-      query.andWhere('food.isFood = :isFood', { isFood });
+      queryBuilder.andWhere('food.isFood = :isFood', { isFood });
     }
 
     if (cheap) {
-      query.andWhere('food.price < :price', { price: 50000 });
+      queryBuilder.andWhere('food.price < :price', { price: 50000 });
     }
 
     if (highRating) {
-      query
+      queryBuilder
         .leftJoinAndSelect(
           'food.reviews',
           'review',
@@ -47,7 +48,7 @@ export class FoodService {
         .having('AVG(review.rate) >= :rate', { rate: 4 });
     }
 
-    return await query.getMany();
+    return await queryBuilder.getMany();
   }
 
   async getFoodByName(query: { name: string }): Promise<any> {
