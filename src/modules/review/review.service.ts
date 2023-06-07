@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class ReviewService {
+  
   constructor(
     @InjectRepository(Review)
     private reviewRepository: Repository<Review>,
@@ -29,12 +30,11 @@ export class ReviewService {
       return acc + cur.rate;
     }, 0);
 
+
     const rating = ratingSum / reviewRaw.length;
 
-    const result = {
-      rating,
-      reviews: reviewRaw,
-    };
+    const result = rating;
+
     return result;
   }
 
@@ -61,16 +61,19 @@ export class ReviewService {
     const reviewRaw = await this.reviewRepository.find({
       where: { foodId: foodId },
     });
+
     const ratingSum = reviewRaw.reduce((acc, cur) => {
       return acc + cur.rate;
     }, 0);
 
     const rating = ratingSum / reviewRaw.length;
 
+
     const result = {
       rating,
       reviews: reviewRaw,
     };
     return result;
+
   }
 }

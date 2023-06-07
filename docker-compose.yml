@@ -1,33 +1,32 @@
 services:
   api:
     build:
-      context: .
       dockerfile: Dockerfile
-    container_name: nestjs-container
+      context: .
+      # Only will build development stage from our dockerfile
+      target: development
+    env_file:
+        - .env
+    volumes:
+      - .:/usr/src/app
+    # Run in dev Mode: npm run start:dev
+    command: npm run start:dev
     ports:
-      - 3001:3000
+      - 3008:3008
     depends_on:
       - postgres
-    working_dir: /app
-    volumes:
-      - ./:/app
-    networks:
-      - nestjs-network-tcdb
+
   postgres:
-    image: postgres:15.2
-    container_name: postgres-database
-    ports:
-      - 5434:5432
+    image: postgres
     restart: always
     environment:
+      POSTGRES_DB: tcdb
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: vuong2001
-      POSTGRES_DB: tcdb
+    ports: 
+      - '5432:5432'
     volumes:
-      - postgres-tcdb:/var/lib/postgresql/data
-    networks:
-      - nestjs-network-tcdb
+      - docker-nest-postgres:/var/lib/postgresql/data
+
 volumes:
-  postgres-tcdb:
-networks:
-  nestjs-network-tcdb:
+  docker-nest-postgres:

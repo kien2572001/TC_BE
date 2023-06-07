@@ -1,5 +1,6 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn , ManyToOne, JoinColumn} from 'typeorm';
 import { Review } from './review.entity';
+import { Restaurant } from './restaurant.entity';
 
 @Entity('food')
 export class Food {
@@ -26,4 +27,8 @@ export class Food {
 
   @OneToMany(() => Review, (review) => review.food)
   reviews: Review[];
+
+  @ManyToOne(() => Restaurant, (restaurant) => restaurant.foods)
+  @JoinColumn({ name: 'restaurant_id' })
+  restaurant: Restaurant;
 }
