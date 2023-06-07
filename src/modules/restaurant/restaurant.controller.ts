@@ -3,6 +3,7 @@ import { Controller, Get, Query } from '@nestjs/common';
 import { Public } from 'src/decorator/public.decorator';
 import { RestaurantService } from './restaurant.service';
 import { V1GetRestaurantByName } from './entities/get-restaurant-by-name.entity';
+import { V2GetRestaurantList } from './entities/get-restaurant-list.entity';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -27,7 +28,7 @@ export class RestaurantController {
   @Get('/all')
   @ApiOperation({ summary: 'Get all restaurant' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  getAllRestaurant(): Promise<V1GetRestaurantByName> {
+  getAllRestaurant(): Promise<V2GetRestaurantList> {
     return this.restaurantService.getAllRestaurant();
   }
 
