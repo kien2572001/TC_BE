@@ -12,6 +12,7 @@ import {
   V2Restaurant,
 } from './entities/get-restaurant-list.entity';
 import { ReviewService } from '../review/review.service';
+import { V1PostRestaurantBodyDto } from './dto/post-restaurants.dto';
 
 @Injectable()
 export class RestaurantService {
@@ -20,6 +21,18 @@ export class RestaurantService {
     private restaurantRepository: Repository<Restaurant>,
     private reviewService: ReviewService,
   ) {}
+  async createRestaurant(body: V1PostRestaurantBodyDto): Promise<any> {
+    const { name, address, photoUrl, activeTime, isDraft } = body;
+    const newRestaurant = this.restaurantRepository.save({
+      name,
+      address,
+      photoUrl,
+      activeTime,
+      isDraft,
+    });
+    return newRestaurant;
+  }
+
   async getAllRestaurant(): Promise<V2GetRestaurantList> {
     const restaurantsRaw = await this.restaurantRepository.find();
     const restaurants: V2Restaurant[] = await Promise.all(
