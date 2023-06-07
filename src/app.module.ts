@@ -11,6 +11,7 @@ import { UserModule } from './modules/user/user.module';
 import { RestaurantModule } from './modules/restaurant/restaurant.module';
 import { FoodModule } from './modules/food/food.module';
 import { ReviewModule } from './modules/review/review.module';
+import { SearchModule } from './modules/search/search.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { ReviewModule } from './modules/review/review.module';
     RestaurantModule,
     FoodModule,
     ReviewModule,
+    SearchModule,
   ],
   controllers: [AppController],
   providers: [

@@ -63,8 +63,16 @@ export class FoodService {
     const foodRaw = await this.foodRepository.find({
       where: {
         name: Like(`%${name}%`),
+        isDraft: false,
       },
     });
+
+    if (!foodRaw.length) {
+      return {
+        foods: [],
+        total: 0,
+      };
+    }
 
     const dataRaw = await Promise.all(
       foodRaw.map(async (food) => {
@@ -73,9 +81,7 @@ export class FoodService {
             id: food.restaurantId,
           },
         });
-        const reviews = await this.reviewService.getReviewsByFoodId({
-          foodId: food.id,
-        });
+        const reviews = await this.reviewService.getAvgRating(food.id, 'food');
         return {
           ...food,
           restaurant,
@@ -90,7 +96,6 @@ export class FoodService {
         id: food.id,
         name: food.name,
         price: food.price,
-        isDraft: food.isDraft,
         photoUrl: food.photoUrl,
         isFood: food.isFood,
         rating: food.rating,
@@ -100,18 +105,7 @@ export class FoodService {
           address: food.restaurant.address,
           photoUrl: food.restaurant.photoUrl,
           activeTime: food.restaurant.activeTime,
-          isDraft: food.restaurant.isDraft,
         },
-        reviews: food.reviews.map((review) => {
-          return {
-            id: review.id,
-            rate: review.rate,
-            content: review.content,
-            foodId: review.foodId,
-            restaurantId: review.restaurantId,
-            userId: review.userId,
-          };
-        }),
       };
     });
 

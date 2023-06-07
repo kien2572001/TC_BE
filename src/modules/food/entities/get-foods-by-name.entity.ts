@@ -47,72 +47,7 @@ class V1FoodByNameRestaurant {
   @Expose()
   @IsString()
   activeTime: string;
-
-  @ApiProperty({
-    type: 'boolean',
-    description: 'Is restaurant draft',
-    format: 'boolean',
-  })
-  @Expose()
-  @IsBoolean()
-  isDraft: boolean;
 }
-class V1FoodByNameReview {
-  @ApiProperty({
-    type: 'number',
-    description: 'Review id',
-    format: 'number',
-  })
-  @Expose()
-  @IsNumber()
-  id: number;
-
-  @ApiProperty({
-    type: 'number',
-    description: 'Review rate',
-    format: 'number',
-  })
-  @Expose()
-  @IsNumber()
-  rate: number;
-
-  @ApiProperty({
-    type: 'string',
-    description: 'Review content',
-    format: 'string',
-  })
-  @Expose()
-  @IsString()
-  content: string;
-
-  @ApiProperty({
-    type: 'number',
-    description: 'Food id',
-    format: 'number',
-  })
-  @Expose()
-  @IsNumber()
-  foodId: number;
-
-  @ApiProperty({
-    type: 'number',
-    description: 'Restaurant id',
-    format: 'number',
-  })
-  @Expose()
-  @IsNumber()
-  restaurantId: number;
-
-  @ApiProperty({
-    type: 'number',
-    description: 'User id',
-    format: 'number',
-  })
-  @Expose()
-  @IsNumber()
-  userId: number;
-}
-
 export class V1FoodDetailByName {
   @ApiProperty({
     type: 'number',
@@ -143,17 +78,8 @@ export class V1FoodDetailByName {
 
   @ApiProperty({
     type: 'boolean',
-    description: 'Is food draft',
-    format: 'string',
-  })
-  @Expose()
-  @IsBoolean()
-  isDraft: boolean;
-
-  @ApiProperty({
-    type: 'boolean',
     description: 'Is food',
-    format: 'string',
+    format: 'boolean',
   })
   @Expose()
   @IsBoolean()
@@ -175,14 +101,6 @@ export class V1FoodDetailByName {
   @Type(() => V1FoodByNameRestaurant)
   @Expose()
   restaurant: V1FoodByNameRestaurant;
-
-  @ApiProperty({
-    type: [V1FoodByNameReview],
-    description: 'Reviews',
-  })
-  @Type(() => V1FoodByNameReview)
-  @Expose()
-  reviews: V1FoodByNameReview[];
 }
 
 export class V1FoodByName {

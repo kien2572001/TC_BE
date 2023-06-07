@@ -11,5 +11,6 @@ import { Review } from 'src/database/entity/review.entity';
   imports: [TypeOrmModule.forFeature([Food, Restaurant, Review]), ReviewModule],
   controllers: [FoodController],
   providers: [FoodService],
+  exports: [FoodService],
 })
 export class FoodModule {}

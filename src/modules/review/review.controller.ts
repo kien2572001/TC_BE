@@ -13,7 +13,6 @@ import { Public } from 'src/decorator/public.decorator';
 export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}
 
-
   @Public()
   @Get('restaurants/:restaurantId')
   @ApiOperation({ summary: 'Get review by restaurant id' })
@@ -29,5 +28,4 @@ export class ReviewController {
   getReviewsByFoodId(@Param() param) {
     return this.reviewService.getReviewsByFoodId(param);
   }
-
 }
