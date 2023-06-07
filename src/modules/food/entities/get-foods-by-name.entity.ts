@@ -51,7 +51,7 @@ class V1FoodByNameRestaurant {
   @ApiProperty({
     type: 'boolean',
     description: 'Is restaurant draft',
-    format: 'string',
+    format: 'boolean',
   })
   @Expose()
   @IsBoolean()
@@ -158,6 +158,15 @@ export class V1FoodDetailByName {
   @Expose()
   @IsBoolean()
   isFood: boolean;
+
+  @ApiProperty({
+    type: 'number',
+    description: 'Rating food',
+    format: 'number',
+  })
+  @Expose()
+  @IsNumber()
+  rating: number;
 
   @ApiProperty({
     type: V1FoodByNameRestaurant,
