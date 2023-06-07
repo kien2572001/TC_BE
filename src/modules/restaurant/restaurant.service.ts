@@ -16,7 +16,7 @@ export class RestaurantService {
     @InjectRepository(Restaurant)
     private restaurantRepository: Repository<Restaurant>,
   ) {}
-  async getAllRestaurant():Promise<V1GetRestaurantByName> {
+  async getAllRestaurant(): Promise<V1GetRestaurantByName> {
     const restaurantsRaw = await this.restaurantRepository.find();
     const restaurants: V1Restaurant[] = await Promise.all(
       restaurantsRaw.map(async (item) => {
@@ -29,8 +29,8 @@ export class RestaurantService {
           isDraft: item.isDraft,
         };
         return restaurant;
-      }
-    ));
+      }),
+    );
     const results: V1GetRestaurantByName = {
       restaurants,
       total: restaurants.length,
