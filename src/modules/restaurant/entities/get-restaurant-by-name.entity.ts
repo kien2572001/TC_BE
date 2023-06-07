@@ -47,15 +47,6 @@ export class V1Restaurant {
   @Expose()
   @IsString()
   activeTime: string;
-
-  @ApiProperty({
-    type: 'boolean',
-    description: 'Is restaurant draft',
-    format: 'string',
-  })
-  @Expose()
-  @IsBoolean()
-  isDraft: boolean;
 }
 
 export class V1GetRestaurantByName {
