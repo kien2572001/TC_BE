@@ -1,5 +1,4 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
-import { Request } from 'express';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ERole } from 'src/core/enum/default.enum';
 import { Public } from 'src/decorator/public.decorator';
 import { Roles } from 'src/decorator/roles.decorator';
@@ -7,15 +6,11 @@ import { VUserLoginDto } from './dto/user-login.dto';
 import { VUserRegisterDto } from './dto/user-register.dto';
 import { UserService } from './user.service';
 import { VRefreshToken } from './dto/refresh-token.dto';
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 @ApiTags('API User')
 @Controller('user')
 export class UserController {
+  // eslint-disable-next-line no-unused-vars
   constructor(private readonly userService: UserService) {}
 
   @Public()

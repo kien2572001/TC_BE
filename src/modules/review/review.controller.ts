@@ -12,6 +12,7 @@ import { V1GetReviewsByUserIdParamDto } from './dto/get-reviews-by-user-id.dto';
 @ApiTags('API Reviews')
 @Controller('reviews')
 export class ReviewController {
+  // eslint-disable-next-line no-unused-vars
   constructor(private readonly reviewService: ReviewService) {}
 
   @Public()

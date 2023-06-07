@@ -10,6 +10,7 @@ export class ReviewService {
   constructor(
     @InjectRepository(Review)
     private reviewRepository: Repository<Review>,
+    // eslint-disable-next-line no-unused-vars
     private userService: UserService,
   ) {}
   async getAvgRating(id, type): Promise<any> {

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export enum ErrorMessage {
   ACCOUNT_NOT_EXISTS = 'error.ACCOUNT_NOT_EXISTS',
   ACCOUNT_EXISTS = 'error.ACCOUNT_EXISTS',

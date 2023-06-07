@@ -5,6 +5,7 @@ import { ROLE_KEYS } from 'src/decorator/roles.decorator';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
+  // eslint-disable-next-line no-unused-vars
   constructor(private reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean {
