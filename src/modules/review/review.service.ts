@@ -10,8 +10,7 @@ export class ReviewService {
     @InjectRepository(Review)
     private reviewRepository: Repository<Review>,
   ) {}
-
-   async getAvgRating(id, type): Promise<any> {
+  async getAvgRating(id, type): Promise<any> {
     let reviewRaw;
     switch (type) {
       case 'restaurant':
@@ -31,8 +30,50 @@ export class ReviewService {
       return acc + cur.rate;
     }, 0);
 
+
     const rating = ratingSum / reviewRaw.length;
 
-    return rating;
+    const result = rating;
+
+    return result;
+  }
+
+  async getReviewsByRestaurantId(param): Promise<any> {
+    const { restaurantId } = param;
+    const reviewRaw = await this.reviewRepository.find({
+      where: { restaurantId: restaurantId },
+    });
+    const ratingSum = reviewRaw.reduce((acc, cur) => {
+      return acc + cur.rate;
+    }, 0);
+
+    const rating = ratingSum / reviewRaw.length;
+
+    const result = {
+      rating,
+      reviews: reviewRaw,
+    };
+    return result;
+  }
+
+  async getReviewsByFoodId(param): Promise<any> {
+    const { foodId } = param;
+    const reviewRaw = await this.reviewRepository.find({
+      where: { foodId: foodId },
+    });
+
+    const ratingSum = reviewRaw.reduce((acc, cur) => {
+      return acc + cur.rate;
+    }, 0);
+
+    const rating = ratingSum / reviewRaw.length;
+
+
+    const result = {
+      rating,
+      reviews: reviewRaw,
+    };
+    return result;
+
   }
 }

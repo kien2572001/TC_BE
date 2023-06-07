@@ -20,7 +20,9 @@ export class RestaurantService {
     private restaurantRepository: Repository<Restaurant>,
     private reviewService: ReviewService,
   ) {}
+ fix-API-home
   async getAllRestaurant(): Promise<V2GetRestaurantList> {
+
     const restaurantsRaw = await this.restaurantRepository.find();
     const restaurants: V2Restaurant[] = await Promise.all(
       restaurantsRaw.map(async (item) => {
@@ -40,8 +42,10 @@ export class RestaurantService {
         return restaurant;
       }),
     );
+ fix-API-home
 
     const results: V2GetRestaurantList = {
+
       restaurants,
       total: restaurants.length,
     };
