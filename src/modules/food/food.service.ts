@@ -19,6 +19,7 @@ export class FoodService {
     private reviewRepository: Repository<Review>,
     @InjectRepository(Restaurant)
     private restaurantRepository: Repository<Restaurant>,
+    private reviewService: ReviewService,
   ) {}
 
   async getAllFood() {
@@ -72,15 +73,14 @@ export class FoodService {
             id: food.restaurantId,
           },
         });
-        const reviews = await this.reviewRepository.find({
-          where: {
-            foodId: food.id,
-          },
+        const reviews = await this.reviewService.getReviewsByFoodId({
+          foodId: food.id,
         });
         return {
           ...food,
           restaurant,
-          reviews,
+          rating: reviews.rating,
+          reviews: reviews.reviews,
         };
       }),
     );
@@ -93,6 +93,7 @@ export class FoodService {
         isDraft: food.isDraft,
         photoUrl: food.photoUrl,
         isFood: food.isFood,
+        rating: food.rating,
         restaurant: {
           id: food.restaurant.id,
           name: food.restaurant.name,
