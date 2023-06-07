@@ -1,5 +1,5 @@
 import { V1GetRestaurantByNameParamDto } from './dto/get-restaurant-by-name.dto';
-import { Controller, Get, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { Public } from 'src/decorator/public.decorator';
 import { RestaurantService } from './restaurant.service';
 import { V1GetRestaurantByName } from './entities/get-restaurant-by-name.entity';
@@ -10,6 +10,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { V1PostRestaurantBodyDto } from './dto/post-restaurants.dto';
 @ApiBearerAuth()
 @ApiTags('API Restaurants')
 @Controller('restaurants')
@@ -22,6 +23,15 @@ export class RestaurantController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   findAll(): string {
     return 'This action returns all cats';
+  }
+
+  @Public()
+  @Post()
+  @ApiBearerAuth('BearerAuth')
+  @ApiOperation({ summary: 'Create restaurant' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  createRestaurant(@Body() body: V1PostRestaurantBodyDto) {
+    return this.restaurantService.createRestaurant(body);
   }
 
   @Public()
