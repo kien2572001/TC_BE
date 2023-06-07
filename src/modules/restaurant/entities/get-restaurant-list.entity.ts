@@ -67,7 +67,7 @@ export class V2Restaurant {
   avgRating: number;
 }
 
-export class V2GetRestaurantList{
+export class V2GetRestaurantList {
   @ApiProperty({ type: [V2Restaurant], description: 'Restaurant' })
   @Expose()
   @Type(() => V2Restaurant)

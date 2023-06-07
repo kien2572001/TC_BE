@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query, Req } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { Public } from 'src/decorator/public.decorator';
 import { FoodService } from './food.service';
 import {
@@ -14,6 +14,7 @@ import { V1GetFoodsByNameParamDto } from './dto/get-foods-by-name.dto';
 @ApiTags('API Foods')
 @Controller('foods')
 export class FoodController {
+  // eslint-disable-next-line no-unused-vars
   constructor(private readonly foodService: FoodService) {}
 
   @Public()

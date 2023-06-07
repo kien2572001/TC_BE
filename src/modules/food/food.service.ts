@@ -1,7 +1,7 @@
-import { Injectable, Param, Query } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Food } from 'src/database/entity/food.entity';
-import { LessThan, MoreThanOrEqual, Repository, Raw, Like } from 'typeorm';
+import { Repository, Like } from 'typeorm';
 import { ReviewService } from '../review/review.service';
 import { Review } from 'src/database/entity/review.entity';
 import { Restaurant } from 'src/database/entity/restaurant.entity';

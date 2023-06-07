@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export enum EConfiguration {
   PORT = 'PORT',
   JWT_SECRET = 'JWT_SECRET',
