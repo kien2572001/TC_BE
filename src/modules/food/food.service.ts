@@ -99,13 +99,14 @@ export class FoodService {
 
     const dataRaw = await Promise.all(
       foodRaw.map(async (food) => {
-        const restaurant = await this.restaurantService.getRestaurantById(1);
-        const reviews = await this.reviewService.getAvgRating(food.id, 'food');
+        const restaurant = await this.restaurantService.getRestaurantById(
+          food.restaurantId,
+        );
+        const rating = await this.reviewService.getAvgRating(food.id, 'food');
         return {
           ...food,
           restaurant,
-          rating: reviews.rating,
-          reviews: reviews.reviews,
+          rating: rating || null,
         };
       }),
     );
