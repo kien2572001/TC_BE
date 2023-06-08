@@ -255,4 +255,39 @@ export class FoodService {
     };
     return result;
   }
+
+  async getFoodsByRestaurantId(param){
+    const {restaurantId} = param;
+    const foodRaw = await this.foodRepository.find({
+      where: {
+        restaurantId: restaurantId,
+      }
+  }
+    );
+    const foods = await Promise.all(
+      foodRaw.map(async (item) => {
+        const reviews = await this.reviewService.getReviewsByFoodId({foodId:item.id});
+
+        const restaurant = await this.restaurantService.getRestaurantById(
+          {id:item.restaurantId}
+        );
+        const food = {
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          photoUrl: item.photoUrl,
+          isFood: item.isFood,
+          restaurant: restaurant.name,
+          rating: reviews.rating,
+        };
+        return food;
+      }
+      ),
+    );
+    return {
+      foods,
+      message: 'Get all food successfully',
+    };
+  }
+
 }

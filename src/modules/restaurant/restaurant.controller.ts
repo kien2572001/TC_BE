@@ -1,5 +1,5 @@
 import { V1GetRestaurantByNameParamDto } from './dto/get-restaurant-by-name.dto';
-import { Body, Controller, Get, Post, Query , Param} from '@nestjs/common';
+import { Body, Controller, Get, Post, Query , Param, Inject,forwardRef} from '@nestjs/common';
 import { Public } from 'src/decorator/public.decorator';
 import { RestaurantService } from './restaurant.service';
 import { V1GetRestaurantByName } from './entities/get-restaurant-by-name.entity';
@@ -11,11 +11,19 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { V1PostRestaurantBodyDto } from './dto/post-restaurants.dto';
+import { FoodService } from '../food/food.service';
+import { ReviewService } from '../review/review.service';
 @ApiBearerAuth()
 @ApiTags('API Restaurants')
 @Controller('restaurants')
 export class RestaurantController {
-  constructor(private readonly restaurantService: RestaurantService) {}
+  constructor(
+    private readonly restaurantService: RestaurantService,
+    @Inject(forwardRef(()=>FoodService))
+    private readonly foodService: FoodService,
+    @Inject(forwardRef(()=>ReviewService))
+    private readonly reviewService: ReviewService) {}
+    
 
   @Public()
   @Get()
@@ -61,18 +69,30 @@ export class RestaurantController {
   @Public()
   @Get('/detail/:id')
   @ApiOperation({ summary: 'Get restaurant detail by id' })
-  @ApiResponse({
-    status: 200,
-    description: 'The found record',
-    type: V1GetRestaurantByName,
-  })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   getRestaurantById(
     @Param() param
-  ): Promise<V1GetRestaurantByName> {
+  ): Promise<any> {
     return this.restaurantService.getRestaurantById(param);
   }
 
-  
+  @Public()
+  @Get('/detail/menu/:restaurantId')
+  @ApiOperation({ summary: 'Get restaurant detail by id' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  getFoodsByRestaurantId(
+    @Param() param
+  ): Promise<any> {
+    return this.foodService.getFoodsByRestaurantId(param);
+  }
+
+  @Public()
+  @Get('/detail/reviews/:restaurantId')
+  @ApiOperation({ summary: 'Get review by restaurant id' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  getReviewsByRestaurantId(@Param() param) {
+    return this.reviewService.getReviewsByRestaurantId(param);
+  }
+
 
 }
