@@ -149,7 +149,8 @@ export class UserService {
   }
 
   async getUserById(id: number) {
-    return this.userRepository.findOne({ where: { id } });
+    const user = await this.userRepository.findOne({ where: { id } });
+    return user;
   }
 
   async updateUserById(

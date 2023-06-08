@@ -25,7 +25,15 @@ export class ReviewService {
       return acc + cur.rate;
     }, 0);
 
+    if (reviewRaw.length === 0) {
+      return {
+        rating: 0,
+        reviews: [],
+      };
+    }
     const user = await this.userService.getUserById(reviewRaw[0].userId);
+    console.log(reviewRaw[0].userId);
+    
     const reviews = reviewRaw.map((review) => {
       return {
         ...review,
