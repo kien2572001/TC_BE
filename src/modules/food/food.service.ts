@@ -217,13 +217,16 @@ export class FoodService {
 
     const dataRaw = await Promise.all(
       foodRaw.map(async (food) => {
-        const restaurant = await this.restaurantService.getRestaurantById(1);
+
+        const restaurant = await this.restaurantService.getRestaurantById(
+          food.restaurantId,
+        );
         const reviews = await this.reviewService.getReviewsByFoodId(food.id);
+
         return {
           ...food,
           restaurant,
-          rating: reviews.rating,
-          reviews: reviews.reviews,
+          rating: reviews.rating || null,
         };
       }),
     );
