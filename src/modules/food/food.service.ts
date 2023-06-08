@@ -52,7 +52,7 @@ export class FoodService {
         const reviews = await this.reviewService.getReviewsByFoodId({foodId:item.id});
 
         const restaurant = await this.restaurantService.getRestaurantById(
-          item.restaurantId,
+          {id:item.restaurantId}
         );
         const food = {
           id: item.id,
@@ -83,7 +83,7 @@ export class FoodService {
         const reviews = await this.reviewService.getReviewsByFoodId({foodId:item.id});
 
         const restaurant = await this.restaurantService.getRestaurantById(
-          item.restaurantId,
+          {id:item.restaurantId}
         );
         const food = {
           id: item.id,
@@ -114,7 +114,7 @@ export class FoodService {
         const reviews = await this.reviewService.getReviewsByFoodId({foodId:item.id});
 
         const restaurant = await this.restaurantService.getRestaurantById(
-          item.restaurantId,
+          {id:item.restaurantId}
         );
         const food = {
           id: item.id,
@@ -146,7 +146,7 @@ export class FoodService {
         const reviews = await this.reviewService.getReviewsByFoodId({foodId:item.id});
 
         const restaurant = await this.restaurantService.getRestaurantById(
-          item.restaurantId,
+          {id:item.restaurantId}
         );
         const food = {
           id: item.id,
@@ -173,7 +173,7 @@ export class FoodService {
       foodRaw.map(async (item) => {
         const reviews = await this.reviewService.getReviewsByFoodId({foodId:item.id});
         const restaurant = await this.restaurantService.getRestaurantById(
-          item.restaurantId,
+          {id:item.restaurantId}
         );
         if (reviews.rating < 4) {
           return;
@@ -219,7 +219,7 @@ export class FoodService {
       foodRaw.map(async (food) => {
 
         const restaurant = await this.restaurantService.getRestaurantById(
-          food.restaurantId,
+          {id:food.restaurantId}
         );
         const reviews = await this.reviewService.getReviewsByFoodId(food.id);
 

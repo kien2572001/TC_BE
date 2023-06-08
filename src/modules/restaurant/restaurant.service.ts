@@ -21,7 +21,8 @@ export class RestaurantService {
     private restaurantRepository: Repository<Restaurant>,
     private reviewService: ReviewService,
   ) {}
-  async getRestaurantById(id): Promise<any> {
+  async getRestaurantById(param): Promise<any> {
+    const { id } = param;
     const restaurantRaw = await this.restaurantRepository.findOne({
       where: { id: id },
     });
