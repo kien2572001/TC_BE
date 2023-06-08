@@ -10,7 +10,6 @@ services:
     volumes:
       - .:/usr/src/app
     # Run in dev Mode: npm run start:dev
-    command: npm run start:dev
     ports:
       - 3008:3008
     depends_on:
