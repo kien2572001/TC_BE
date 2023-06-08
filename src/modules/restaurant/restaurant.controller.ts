@@ -1,5 +1,5 @@
 import { V1GetRestaurantByNameParamDto } from './dto/get-restaurant-by-name.dto';
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query , Param} from '@nestjs/common';
 import { Public } from 'src/decorator/public.decorator';
 import { RestaurantService } from './restaurant.service';
 import { V1GetRestaurantByName } from './entities/get-restaurant-by-name.entity';
@@ -56,4 +56,23 @@ export class RestaurantController {
   ): Promise<V1GetRestaurantByName> {
     return this.restaurantService.getRestaurantByName(query);
   }
+
+  //Restaurant detail
+  @Public()
+  @Get('/detail/:id')
+  @ApiOperation({ summary: 'Get restaurant detail by id' })
+  @ApiResponse({
+    status: 200,
+    description: 'The found record',
+    type: V1GetRestaurantByName,
+  })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  getRestaurantById(
+    @Param() param
+  ): Promise<V1GetRestaurantByName> {
+    return this.restaurantService.getRestaurantById(param);
+  }
+
+  
+
 }
