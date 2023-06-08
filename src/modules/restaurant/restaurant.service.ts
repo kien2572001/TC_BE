@@ -26,13 +26,23 @@ export class RestaurantService {
     const restaurantRaw = await this.restaurantRepository.findOne({
       where: { id: id },
     });
+    const reviews = await this.reviewService.getReviewsByRestaurantId({restaurantId:id})
     if (!restaurantRaw) {
       return {
         message: 'Restaurant not found',
         restaurant: null,
       };
     }
-    return restaurantRaw;
+    return {
+      restaurant: {
+        id: restaurantRaw.id,
+        name: restaurantRaw.name,
+        address: restaurantRaw.address,
+        photoUrl: restaurantRaw.photoUrl,
+        activeTime: restaurantRaw.activeTime,
+        rating: reviews.rating,
+    }
+  }
   }
 
   async createRestaurant(body: V1PostRestaurantBodyDto): Promise<any> {

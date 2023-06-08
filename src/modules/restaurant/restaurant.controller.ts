@@ -78,7 +78,7 @@ export class RestaurantController {
 
   @Public()
   @Get('/detail/menu/:restaurantId')
-  @ApiOperation({ summary: 'Get restaurant detail by id' })
+  @ApiOperation({ summary: 'Get restaurant menu by id' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   getFoodsByRestaurantId(
     @Param() param
