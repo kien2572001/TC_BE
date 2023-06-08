@@ -50,10 +50,8 @@ export class RestaurantService {
     const restaurantsRaw = await this.restaurantRepository.find();
     const restaurants: V2Restaurant[] = await Promise.all(
       restaurantsRaw.map(async (item) => {
-        const avgRating = await this.reviewService.getAvgRating(
-          item.id,
-          'restaurant',
-        );
+        const reviews = await this.reviewService.getReviewsByRestaurantId({restaurantId: item.id})
+        console.log(item.id)
         const restaurant = {
           id: item.id,
           name: item.name,
@@ -61,7 +59,7 @@ export class RestaurantService {
           photoUrl: item.photoUrl,
           activeTime: item.activeTime,
           isDraft: item.isDraft,
-          avgRating: avgRating,
+          rating: reviews.rating,
         };
         return restaurant;
       }),
