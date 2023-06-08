@@ -1,26 +1,49 @@
+import { RestaurantService } from './../restaurant/restaurant.service';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Food } from 'src/database/entity/food.entity';
-import { Repository, Like } from 'typeorm';
+import { Repository, Like, getConnection } from 'typeorm';
 import { ReviewService } from '../review/review.service';
-import { Review } from 'src/database/entity/review.entity';
-import { Restaurant } from 'src/database/entity/restaurant.entity';
 import { V1GetFoodsByNameParamDto } from './dto/get-foods-by-name.dto';
 import {
   V1FoodByName,
   V1FoodDetailByName,
 } from './entities/get-foods-by-name.entity';
+import { V1PostFoodsDto } from './dto/post-foods.dto';
 @Injectable()
 export class FoodService {
   constructor(
     @InjectRepository(Food)
     private foodRepository: Repository<Food>,
-    @InjectRepository(Review)
-    private reviewRepository: Repository<Review>,
-    @InjectRepository(Restaurant)
-    private restaurantRepository: Repository<Restaurant>,
     private reviewService: ReviewService,
+    private restaurantService: RestaurantService,
   ) {}
+
+  async createFood(body: V1PostFoodsDto) {
+    const { restaurantId } = body;
+
+    const restaurant = await this.restaurantService.getRestaurantById(
+      restaurantId,
+    );
+    if (!restaurant) {
+      return {
+        message: 'Restaurant not found',
+        food: null,
+      };
+    }
+
+    const food = await this.foodRepository.save(body);
+    if (!food) {
+      return {
+        message: 'Create food failed',
+        food: null,
+      };
+    }
+    return {
+      food,
+      message: 'Food created successfully',
+    };
+  }
 
   async getAllFood() {
     return await this.foodRepository.find();
@@ -76,11 +99,7 @@ export class FoodService {
 
     const dataRaw = await Promise.all(
       foodRaw.map(async (food) => {
-        const restaurant = await this.restaurantRepository.findOne({
-          where: {
-            id: food.restaurantId,
-          },
-        });
+        const restaurant = await this.restaurantService.getRestaurantById(1);
         const reviews = await this.reviewService.getAvgRating(food.id, 'food');
         return {
           ...food,

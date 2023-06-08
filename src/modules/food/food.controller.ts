@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Post, Query, Body } from '@nestjs/common';
 import { Public } from 'src/decorator/public.decorator';
 import { FoodService } from './food.service';
 import {
@@ -9,6 +9,7 @@ import {
 } from '@nestjs/swagger';
 import { V1FoodByName } from './entities/get-foods-by-name.entity';
 import { V1GetFoodsByNameParamDto } from './dto/get-foods-by-name.dto';
+import { V1PostFoodsDto } from './dto/post-foods.dto';
 
 @ApiBearerAuth()
 @ApiTags('API Foods')
@@ -16,6 +17,14 @@ import { V1GetFoodsByNameParamDto } from './dto/get-foods-by-name.dto';
 export class FoodController {
   // eslint-disable-next-line no-unused-vars
   constructor(private readonly foodService: FoodService) {}
+
+  @Public()
+  @Post()
+  @ApiOperation({ summary: 'Create food' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  createFood(@Body() body: V1PostFoodsDto) {
+    return this.foodService.createFood(body);
+  }
 
   @Public()
   @Get('/all')

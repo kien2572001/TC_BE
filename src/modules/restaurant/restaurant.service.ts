@@ -21,6 +21,19 @@ export class RestaurantService {
     private restaurantRepository: Repository<Restaurant>,
     private reviewService: ReviewService,
   ) {}
+  async getRestaurantById(id): Promise<any> {
+    const restaurantRaw = await this.restaurantRepository.findOne({
+      where: { id: id },
+    });
+    if (!restaurantRaw) {
+      return {
+        message: 'Restaurant not found',
+        restaurant: null,
+      };
+    }
+    return restaurantRaw;
+  }
+
   async createRestaurant(body: V1PostRestaurantBodyDto): Promise<any> {
     const { name, address, photoUrl, activeTime, isDraft } = body;
     const newRestaurant = this.restaurantRepository.save({
