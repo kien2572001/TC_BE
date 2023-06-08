@@ -11,7 +11,7 @@ services:
       - .:/usr/src/app
     # Run in dev Mode: npm run start:dev
     ports:
-      - 3008:3008
+      - 3009:3009
     depends_on:
       - postgres
 
