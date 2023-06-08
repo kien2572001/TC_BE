@@ -12,6 +12,7 @@ import { RestaurantModule } from './modules/restaurant/restaurant.module';
 import { FoodModule } from './modules/food/food.module';
 import { ReviewModule } from './modules/review/review.module';
 import { SearchModule } from './modules/search/search.module';
+import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { SearchModule } from './modules/search/search.module';
     FoodModule,
     ReviewModule,
     SearchModule,
+    CloudinaryModule,
   ],
   controllers: [AppController],
   providers: [
