@@ -64,7 +64,7 @@ export class V2Restaurant {
   })
   @Expose()
   @IsNumber()
-  avgRating: number;
+  rating: number;
 }
 
 export class V2GetRestaurantList {

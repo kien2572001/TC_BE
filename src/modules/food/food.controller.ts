@@ -54,6 +54,21 @@ export class FoodController {
   @ApiOperation({ summary: 'Filter food' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   getFoods(@Query() query): Promise<any> {
-    return this.foodService.getFoods(query);
+    if (query.isFood === 'true') {
+      return this.foodService.getFoods();
+    }
+    if (query.isFood === 'false') {
+      return this.foodService.getDrinks();
+    }
+    if (query.cheap === 'true') {
+      return this.foodService.getCheapFoods();
+    }
+    if (query.highRating === 'true') {
+      return this.foodService.getHighRatingFoods();
+    }
+    else {
+      return this.foodService.getAllFood();
+    }
+
   }
 }

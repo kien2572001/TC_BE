@@ -2,7 +2,7 @@ import { RestaurantService } from './../restaurant/restaurant.service';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Food } from 'src/database/entity/food.entity';
-import { Repository, Like, getConnection } from 'typeorm';
+import { Repository, Like, LessThan} from 'typeorm';
 import { ReviewService } from '../review/review.service';
 import { V1GetFoodsByNameParamDto } from './dto/get-foods-by-name.dto';
 import {
@@ -46,39 +46,157 @@ export class FoodService {
   }
 
   async getAllFood() {
-    return await this.foodRepository.find();
+    const foodRaw = await this.foodRepository.find();
+    const foods = await Promise.all(
+      foodRaw.map(async (item) => {
+        const reviews = await this.reviewService.getReviewsByFoodId({foodId:item.id});
+
+        const restaurant = await this.restaurantService.getRestaurantById(
+          item.restaurantId,
+        );
+        const food = {
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          photoUrl: item.photoUrl,
+          isFood: item.isFood,
+          restaurant: restaurant.name,
+          rating: reviews.rating,
+        };
+        return food;
+      }),
+    );
+    return {
+      foods,
+      message: 'Get all food successfully',
+    };
   }
 
-  async getFoods(query: {
-    isFood: boolean;
-    cheap: boolean;
-    highRating: boolean;
-  }): Promise<Food[]> {
-    const queryBuilder = this.foodRepository.createQueryBuilder('food');
-    const { isFood, cheap, highRating } = query;
+  async getFoods (): Promise<any> {
+    const foodRaw = await this.foodRepository.find({
+      where: {
+        isFood: true,
+      }
+    });
+    const foods = await Promise.all(
+      foodRaw.map(async (item) => {
+        const reviews = await this.reviewService.getReviewsByFoodId({foodId:item.id});
 
-    if (isFood) {
-      queryBuilder.andWhere('food.isFood = :isFood', { isFood });
-    }
-
-    if (cheap) {
-      queryBuilder.andWhere('food.price < :price', { price: 50000 });
-    }
-
-    if (highRating) {
-      queryBuilder
-        .leftJoinAndSelect(
-          'food.reviews',
-          'review',
-          'review.food_id = food.id',
-          { rate: 4 },
-        )
-        .groupBy('food.id,review.id')
-        .having('AVG(review.rate) >= :rate', { rate: 4 });
-    }
-
-    return await queryBuilder.getMany();
+        const restaurant = await this.restaurantService.getRestaurantById(
+          item.restaurantId,
+        );
+        const food = {
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          photoUrl: item.photoUrl,
+          isFood: item.isFood,
+          restaurant: restaurant.name,
+          rating: reviews.rating,
+        };
+        return food;
+      }),
+    );
+    return {
+      foods,
+      message: 'Get all food successfully',
+    };
   }
+
+  async getDrinks (): Promise<any> {
+    const foodRaw = await this.foodRepository.find({
+      where: {
+        isFood: false,
+      }
+    });
+    const foods = await Promise.all(
+      foodRaw.map(async (item) => {
+        const reviews = await this.reviewService.getReviewsByFoodId({foodId:item.id});
+
+        const restaurant = await this.restaurantService.getRestaurantById(
+          item.restaurantId,
+        );
+        const food = {
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          photoUrl: item.photoUrl,
+          isFood: item.isFood,
+          restaurant: restaurant.name,
+          rating: reviews.rating,
+        };
+        return food;
+      }),
+    );
+    return {
+      foods,
+      message: 'Get all food successfully',
+    };
+  }
+
+
+  async getCheapFoods (): Promise<any> {
+    const foodRaw = await this.foodRepository.find({
+      where: {
+        price: LessThan(50000),
+      }
+    });
+    const foods = await Promise.all(
+      foodRaw.map(async (item) => {
+        const reviews = await this.reviewService.getReviewsByFoodId({foodId:item.id});
+
+        const restaurant = await this.restaurantService.getRestaurantById(
+          item.restaurantId,
+        );
+        const food = {
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          photoUrl: item.photoUrl,
+          isFood: item.isFood,
+          restaurant: restaurant.name,
+          rating: reviews.rating,
+        };
+        return food;
+      }),
+    );
+    return {
+      foods,
+      message: 'Get all food successfully',
+    };
+  }
+
+  async getHighRatingFoods (): Promise<any> {
+    const foodRaw = await this.foodRepository.find(
+    );
+    const foods = await Promise.all(
+      foodRaw.map(async (item) => {
+        const reviews = await this.reviewService.getReviewsByFoodId({foodId:item.id});
+        const restaurant = await this.restaurantService.getRestaurantById(
+          item.restaurantId,
+        );
+        if (reviews.rating < 4) {
+          return;
+        }
+
+        const food = {
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          photoUrl: item.photoUrl,
+          isFood: item.isFood,
+          restaurant: restaurant.name,
+          rating: reviews.rating,
+        };
+        return food;
+      }),
+    );
+    return {
+      foods,
+      message: 'Get all food successfully',
+    };
+  }
+  
 
   async getFoodByName(query: V1GetFoodsByNameParamDto): Promise<V1FoodByName> {
     const { name } = query;
@@ -99,14 +217,16 @@ export class FoodService {
 
     const dataRaw = await Promise.all(
       foodRaw.map(async (food) => {
+
         const restaurant = await this.restaurantService.getRestaurantById(
           food.restaurantId,
         );
-        const rating = await this.reviewService.getAvgRating(food.id, 'food');
+        const reviews = await this.reviewService.getReviewsByFoodId(food.id);
+
         return {
           ...food,
           restaurant,
-          rating: rating || null,
+          rating: reviews.rating || null,
         };
       }),
     );
