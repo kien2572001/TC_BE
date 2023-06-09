@@ -13,6 +13,7 @@ import { FoodModule } from './modules/food/food.module';
 import { ReviewModule } from './modules/review/review.module';
 import { SearchModule } from './modules/search/search.module';
 import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
+import { DatabaseSeeder } from './database/seeders/database.seed';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
   ],
   controllers: [AppController],
   providers: [
+    DatabaseSeeder,
     AppService,
     {
       provide: APP_GUARD,
