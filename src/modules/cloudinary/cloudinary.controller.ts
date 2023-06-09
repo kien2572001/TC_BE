@@ -1,5 +1,7 @@
 import {
   Controller,
+  Delete,
+  Param,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -21,5 +23,26 @@ export class CloudinaryController {
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
     return this.cloudinaryService.uploadImageToCloudinary(file);
+  }
+
+  @Public()
+  @Post('/image-tmp')
+  @ApiOperation({ summary: 'Upload image tmp' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFileTmp(@UploadedFile() file: Express.Multer.File) {
+    return this.cloudinaryService.uploadImageToCloudinaryTmp(file);
+  }
+
+  @Public()
+  @Delete('/image/:publicId')
+  @ApiOperation({
+    summary:
+      'Delete image by id ( Dang bao tri tai chua tim dc publicId cua image )',
+  })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  async deleteFile(@Param() param) {
+    console.log(param);
+    return this.cloudinaryService.deleteImage(param);
   }
 }
