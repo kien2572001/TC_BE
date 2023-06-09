@@ -20,11 +20,11 @@ export class Review {
   @Column({ name: 'content', type: 'varchar', length: 256 })
   content: string;
 
-  @Column({ name: 'food_id', type: 'int' })
-  foodId: number;
+  @Column({ name: 'food_id', type: 'int', nullable: true })
+  foodId: number | null;
 
-  @Column({ name: 'restaurant_id', type: 'int' })
-  restaurantId: number;
+  @Column({ name: 'restaurant_id', type: 'int', nullable: true })
+  restaurantId: number | null;
 
   @Column({ name: 'user_id', type: 'int' })
   userId: number;
