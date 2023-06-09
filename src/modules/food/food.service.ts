@@ -302,4 +302,33 @@ export class FoodService {
       message: 'Get all food successfully',
     };
   }
+
+  async getFoodDetailById(param) {
+    const { id } = param;
+    const foodRaw = await this.foodRepository.findOne({
+      where: {
+        id: id,
+      },
+    });
+    const reviews = await this.reviewService.getReviewsByFoodId({
+      foodId: foodRaw.id,
+    });
+
+    const restaurant = await this.restaurantService.getRestaurantById({
+      id: foodRaw.restaurantId,
+    });
+    const food = {
+      id: foodRaw.id,
+      name: foodRaw.name,
+      price: foodRaw.price,
+      photoUrl: foodRaw.photoUrl,
+      isFood: foodRaw.isFood,
+      restaurant: restaurant.name,
+      rating: reviews.rating,
+    };
+    return {
+      food,
+      message: 'Get food successfully',
+    };
+  }
 }
