@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Query, Body } from '@nestjs/common';
+import { Controller, Get, Post, Query, Body, Param } from '@nestjs/common';
 import { Public } from 'src/decorator/public.decorator';
 import { FoodService } from './food.service';
 import {
@@ -10,13 +10,18 @@ import {
 import { V1FoodByName } from './entities/get-foods-by-name.entity';
 import { V1GetFoodsByNameParamDto } from './dto/get-foods-by-name.dto';
 import { V1PostFoodsDto } from './dto/post-foods.dto';
+import { ReviewService } from '../review/review.service';
 
 @ApiBearerAuth()
 @ApiTags('API Foods')
 @Controller('foods')
 export class FoodController {
   // eslint-disable-next-line no-unused-vars
-  constructor(private readonly foodService: FoodService) {}
+  constructor(
+    private readonly foodService: FoodService,
+
+    private readonly reviewService: ReviewService,
+  ) {}
 
   @Public()
   @Post()
@@ -65,10 +70,26 @@ export class FoodController {
     }
     if (query.highRating === 'true') {
       return this.foodService.getHighRatingFoods();
-    }
-    else {
+    } else {
       return this.foodService.getAllFood();
     }
+  }
 
+  //Food detail API
+
+  @Public()
+  @Get('/detail/:id')
+  @ApiOperation({ summary: 'Get food detail by id' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  getFoodDetailById(@Param() param): Promise<any> {
+    return this.foodService.getFoodDetailById(param);
+  }
+
+  @Public()
+  @Get('/detail/reviews/:foodId')
+  @ApiOperation({ summary: 'Get review by food id' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  getReviewsByRestaurantId(@Param() param) {
+    return this.reviewService.getReviewsByFoodId(param);
   }
 }
