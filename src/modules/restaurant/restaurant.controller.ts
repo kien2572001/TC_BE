@@ -1,5 +1,14 @@
 import { V1GetRestaurantByNameParamDto } from './dto/get-restaurant-by-name.dto';
-import { Body, Controller, Get, Post, Query , Param, Inject,forwardRef} from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Query,
+  Param,
+  Inject,
+  forwardRef,
+} from '@nestjs/common';
 import { Public } from 'src/decorator/public.decorator';
 import { RestaurantService } from './restaurant.service';
 import { V1GetRestaurantByName } from './entities/get-restaurant-by-name.entity';
@@ -19,11 +28,11 @@ import { ReviewService } from '../review/review.service';
 export class RestaurantController {
   constructor(
     private readonly restaurantService: RestaurantService,
-    @Inject(forwardRef(()=>FoodService))
+    @Inject(forwardRef(() => FoodService))
     private readonly foodService: FoodService,
-    @Inject(forwardRef(()=>ReviewService))
-    private readonly reviewService: ReviewService) {}
-    
+    @Inject(forwardRef(() => ReviewService))
+    private readonly reviewService: ReviewService,
+  ) {}
 
   @Public()
   @Get()
@@ -70,9 +79,7 @@ export class RestaurantController {
   @Get('/detail/:id')
   @ApiOperation({ summary: 'Get restaurant detail by id' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  getRestaurantById(
-    @Param() param
-  ): Promise<any> {
+  getRestaurantById(@Param() param): Promise<any> {
     return this.restaurantService.getRestaurantById(param);
   }
 
@@ -80,9 +87,7 @@ export class RestaurantController {
   @Get('/detail/menu/:restaurantId')
   @ApiOperation({ summary: 'Get restaurant menu by id' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  getFoodsByRestaurantId(
-    @Param() param
-  ): Promise<any> {
+  getFoodsByRestaurantId(@Param() param): Promise<any> {
     return this.foodService.getFoodsByRestaurantId(param);
   }
 
@@ -93,6 +98,4 @@ export class RestaurantController {
   getReviewsByRestaurantId(@Param() param) {
     return this.reviewService.getReviewsByRestaurantId(param);
   }
-
-
 }
