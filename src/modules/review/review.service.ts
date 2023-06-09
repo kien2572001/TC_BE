@@ -13,11 +13,10 @@ export class ReviewService {
     // eslint-disable-next-line no-unused-vars
     private userService: UserService,
   ) {}
- 
-  
+
   async getReviewsByRestaurantId(param): Promise<any> {
     const { restaurantId } = param;
-    
+
     const reviewRaw = await this.reviewRepository.find({
       where: { restaurantId: restaurantId },
     });
@@ -32,13 +31,12 @@ export class ReviewService {
       };
     }
     const user = await this.userService.getUserById(reviewRaw[0].userId);
-    console.log(reviewRaw[0].userId);
-    
+
     const reviews = reviewRaw.map((review) => {
       return {
         ...review,
-        userName : user.name,
-        userAvatar : user.avatar,
+        userName: user.name,
+        userAvatar: user.avatar,
       };
     });
     const rating = ratingSum / reviewRaw.length;
@@ -60,13 +58,19 @@ export class ReviewService {
       return acc + cur.rate;
     }, 0);
 
+    if (reviewRaw.length === 0) {
+      return {
+        rating: 0,
+        reviews: [],
+      };
+    }
     const rating = ratingSum / reviewRaw.length;
     const user = await this.userService.getUserById(reviewRaw[0].userId);
     const reviews = reviewRaw.map((review) => {
       return {
         ...review,
-        userName : user.name,
-        userAvatar : user.avatar,
+        userName: user.name,
+        userAvatar: user.avatar,
       };
     });
     const result = {

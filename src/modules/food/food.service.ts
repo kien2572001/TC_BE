@@ -2,7 +2,7 @@ import { RestaurantService } from './../restaurant/restaurant.service';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Food } from 'src/database/entity/food.entity';
-import { Repository, Like, LessThan} from 'typeorm';
+import { Repository, Like, LessThan } from 'typeorm';
 import { ReviewService } from '../review/review.service';
 import { V1GetFoodsByNameParamDto } from './dto/get-foods-by-name.dto';
 import {
@@ -49,11 +49,13 @@ export class FoodService {
     const foodRaw = await this.foodRepository.find();
     const foods = await Promise.all(
       foodRaw.map(async (item) => {
-        const reviews = await this.reviewService.getReviewsByFoodId({foodId:item.id});
+        const reviews = await this.reviewService.getReviewsByFoodId({
+          foodId: item.id,
+        });
 
-        const restaurant = await this.restaurantService.getRestaurantById(
-          {id:item.restaurantId}
-        );
+        const restaurant = await this.restaurantService.getRestaurantById({
+          id: item.restaurantId,
+        });
         const food = {
           id: item.id,
           name: item.name,
@@ -72,19 +74,21 @@ export class FoodService {
     };
   }
 
-  async getFoods (): Promise<any> {
+  async getFoods(): Promise<any> {
     const foodRaw = await this.foodRepository.find({
       where: {
         isFood: true,
-      }
+      },
     });
     const foods = await Promise.all(
       foodRaw.map(async (item) => {
-        const reviews = await this.reviewService.getReviewsByFoodId({foodId:item.id});
+        const reviews = await this.reviewService.getReviewsByFoodId({
+          foodId: item.id,
+        });
 
-        const restaurant = await this.restaurantService.getRestaurantById(
-          {id:item.restaurantId}
-        );
+        const restaurant = await this.restaurantService.getRestaurantById({
+          id: item.restaurantId,
+        });
         const food = {
           id: item.id,
           name: item.name,
@@ -103,19 +107,21 @@ export class FoodService {
     };
   }
 
-  async getDrinks (): Promise<any> {
+  async getDrinks(): Promise<any> {
     const foodRaw = await this.foodRepository.find({
       where: {
         isFood: false,
-      }
+      },
     });
     const foods = await Promise.all(
       foodRaw.map(async (item) => {
-        const reviews = await this.reviewService.getReviewsByFoodId({foodId:item.id});
+        const reviews = await this.reviewService.getReviewsByFoodId({
+          foodId: item.id,
+        });
 
-        const restaurant = await this.restaurantService.getRestaurantById(
-          {id:item.restaurantId}
-        );
+        const restaurant = await this.restaurantService.getRestaurantById({
+          id: item.restaurantId,
+        });
         const food = {
           id: item.id,
           name: item.name,
@@ -134,20 +140,21 @@ export class FoodService {
     };
   }
 
-
-  async getCheapFoods (): Promise<any> {
+  async getCheapFoods(): Promise<any> {
     const foodRaw = await this.foodRepository.find({
       where: {
         price: LessThan(50000),
-      }
+      },
     });
     const foods = await Promise.all(
       foodRaw.map(async (item) => {
-        const reviews = await this.reviewService.getReviewsByFoodId({foodId:item.id});
+        const reviews = await this.reviewService.getReviewsByFoodId({
+          foodId: item.id,
+        });
 
-        const restaurant = await this.restaurantService.getRestaurantById(
-          {id:item.restaurantId}
-        );
+        const restaurant = await this.restaurantService.getRestaurantById({
+          id: item.restaurantId,
+        });
         const food = {
           id: item.id,
           name: item.name,
@@ -166,15 +173,16 @@ export class FoodService {
     };
   }
 
-  async getHighRatingFoods (): Promise<any> {
-    const foodRaw = await this.foodRepository.find(
-    );
+  async getHighRatingFoods(): Promise<any> {
+    const foodRaw = await this.foodRepository.find();
     const foods = await Promise.all(
       foodRaw.map(async (item) => {
-        const reviews = await this.reviewService.getReviewsByFoodId({foodId:item.id});
-        const restaurant = await this.restaurantService.getRestaurantById(
-          {id:item.restaurantId}
-        );
+        const reviews = await this.reviewService.getReviewsByFoodId({
+          foodId: item.id,
+        });
+        const restaurant = await this.restaurantService.getRestaurantById({
+          id: item.restaurantId,
+        });
         if (reviews.rating < 4) {
           return;
         }
@@ -196,7 +204,6 @@ export class FoodService {
       message: 'Get all food successfully',
     };
   }
-  
 
   async getFoodByName(query: V1GetFoodsByNameParamDto): Promise<V1FoodByName> {
     const { name } = query;
@@ -217,10 +224,9 @@ export class FoodService {
 
     const dataRaw = await Promise.all(
       foodRaw.map(async (food) => {
-
-        const restaurant = await this.restaurantService.getRestaurantById(
-          {id:food.restaurantId}
-        );
+        const restaurant = await this.restaurantService.getRestaurantById({
+          id: food.restaurantId,
+        });
         const reviews = await this.reviewService.getReviewsByFoodId(food.id);
 
         return {
@@ -256,21 +262,29 @@ export class FoodService {
     return result;
   }
 
-  async getFoodsByRestaurantId(param){
-    const {restaurantId} = param;
+  async getFoodsByRestaurantId(param) {
+    const { restaurantId } = param;
     const foodRaw = await this.foodRepository.find({
       where: {
         restaurantId: restaurantId,
-      }
-  }
-    );
+      },
+    });
+    if (foodRaw.length === 0) {
+      return {
+        foods: [],
+        total: 0,
+      };
+    }
+
     const foods = await Promise.all(
       foodRaw.map(async (item) => {
-        const reviews = await this.reviewService.getReviewsByFoodId({foodId:item.id});
+        const reviews = await this.reviewService.getReviewsByFoodId({
+          foodId: item.id,
+        });
 
-        const restaurant = await this.restaurantService.getRestaurantById(
-          {id:item.restaurantId}
-        );
+        const restaurant = await this.restaurantService.getRestaurantById({
+          id: item.restaurantId,
+        });
         const food = {
           id: item.id,
           name: item.name,
@@ -281,13 +295,11 @@ export class FoodService {
           rating: reviews.rating,
         };
         return food;
-      }
-      ),
+      }),
     );
     return {
       foods,
       message: 'Get all food successfully',
     };
   }
-
 }
