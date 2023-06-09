@@ -1,3 +1,4 @@
+ALTER SEQUENCE users_id_seq RESTART WITH 1;
 INSERT INTO users (user_name, email, password, avatar, role)
 VALUES
   ('User 1', 'user1@example.com', 'password1', 'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg', 'USER'),
@@ -5,6 +6,7 @@ VALUES
   ('User 3', 'user3@example.com', 'password3', 'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg', 'USER'),
   ('User 20', 'user20@example.com', 'password20', 'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg', 'USER');
 
+ALTER SEQUENCE restaurant_id_seq RESTART WITH 1;
   INSERT INTO restaurant (name, address, photo_url, active_time, is_draft)
 VALUES
 ('ハノイの食堂', 'ハノイ市中心部、ホーンキエム地区', 'https://example.com/restaurant1.jpg', '11:00 - 22:00', false),
@@ -16,8 +18,12 @@ VALUES
 ('フーコックフードコート', 'ホーチミン市、フーコック地区', 'https://example.com/restaurant7.jpg', '10:00 - 22:00', false),
 ('ベトナム伝統料理レストラン', 'ハノイ市、フランス通り', 'https://example.com/restaurant8.jpg', '11:30 - 23:00', false),
 ('ダナンストリートフード', 'ダナン市、ハイヴァン区', 'https://example.com/restaurant9.jpg', '18:00 - 02:00', false),
-('ベトナム屋台料理', 'ホーチミン市、ベンタイン市場', 'https://example.com/restaurant10.jpg', '16:00 - 23:30', false);
+('ベトナム屋台料理', 'ホーチミン市、ベンタイン市場', 'https://example.com/restaurant10.jpg', '16:00 - 23:30', false),
+('ベトナム屋台料理', 'ホーチミン市、ベンタイン市場', 'https://example.com/restaurant11.jpg', '16:00 - 23:30', false),
+('ベトナム屋台料理', 'ホーチミン市、ベンタイン市場', 'https://example.com/restaurant12.jpg', '16:00 - 23:30', false),
+('ベトナム屋台料理', 'ホーチミン市、ベンタイン市場', 'https://example.com/restaurant13.jpg', '16:00 - 23:30', false);
 
+ALTER SEQUENCE food_id_seq RESTART WITH 1;
 INSERT INTO food (name, photo_url, price, restaurant_id, is_draft, is_food)
 VALUES
 ('ラーメン', 'https://example.com/food1.jpg', 50000, 1, false, true),
@@ -29,7 +35,7 @@ VALUES
 ('お寿司', 'https://example.com/food7.jpg', 28000, 3, false, true),
 ('そば', 'https://example.com/food8.jpg', 32000, 4, false, true),
 ('おでん', 'https://example.com/food9.jpg', 22000, 4, false, true),
-('焼き鳥', 'https://example.com/food10.jpg', 18000, 4, false, true);
+('焼き鳥', 'https://example.com/food10.jpg', 18000, 4, false, true),
 ('とんかつ', 'https://example.com/food11.jpg', 38000, 5, false, true),
 ('おすし', 'https://example.com/food12.jpg', 29000, 5, false, true),
 ('もんじゃ焼き', 'https://example.com/food13.jpg', 42000, 6, false, true),
@@ -39,7 +45,7 @@ VALUES
 ('押し寿司', 'https://example.com/food17.jpg', 32000, 7, false, true),
 ('ラーメン', 'https://example.com/food18.jpg', 40000, 8, false, true),
 ('おでん', 'https://example.com/food19.jpg', 28000, 8, false, true),
-('焼肉', 'https://example.com/food20.jpg', 55000, 9, false, true);
+('焼肉', 'https://example.com/food20.jpg', 55000, 9, false, true),
 ('天ぷら', 'https://example.com/food21.jpg', 46000, 9, false, true),
 ('お好み焼き', 'https://example.com/food22.jpg', 38000, 10, false, true),
 ('もつ鍋', 'https://example.com/food23.jpg', 52000, 10, false, true),
@@ -51,6 +57,7 @@ VALUES
 ('おしるこ', 'https://example.com/food29.jpg', 18000, 13, false, true),
 ('もち', 'https://example.com/food30.jpg', 22000, 13, false, true);
 
+ALTER SEQUENCE review_id_seq RESTART WITH 1;
 INSERT INTO review (rate, content, food_id, restaurant_id, user_id)
 VALUES
 (5, '美味しいラーメンでした。また来たいです。', 1, 1, 1),
