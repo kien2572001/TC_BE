@@ -31,7 +31,7 @@ import { DatabaseSeeder } from './database/seeders/database.seed';
         password: configService.get(EConfiguration.DB_POSTGRESQL_PASSWORD),
         database: configService.get(EConfiguration.DB_POSTGRESQL_NAME),
         entities: [__dirname + '/**/*.entity.{ts,js}'],
-        synchronize: false,
+        synchronize: true,
         autoLoadEntities: true,
         migrations: ['src/migration/**/*.ts'],
         subscribers: ['src/subscriber/**/*.ts'],
