@@ -26,23 +26,20 @@ export class RestaurantService {
     const restaurantRaw = await this.restaurantRepository.findOne({
       where: { id: id },
     });
-    const reviews = await this.reviewService.getReviewsByRestaurantId({restaurantId:id})
+    const reviews = await this.reviewService.getReviewsByRestaurantId({
+      restaurantId: id,
+    });
     if (!restaurantRaw) {
       return {
         message: 'Restaurant not found',
         restaurant: null,
       };
     }
-    return {
-      restaurant: {
-        id: restaurantRaw.id,
-        name: restaurantRaw.name,
-        address: restaurantRaw.address,
-        photoUrl: restaurantRaw.photoUrl,
-        activeTime: restaurantRaw.activeTime,
-        rating: reviews.rating,
-    }
-  }
+    const restaurant = {
+      ...restaurantRaw,
+      rating: reviews.rating,
+    };
+    return restaurant;
   }
 
   async createRestaurant(body: V1PostRestaurantBodyDto): Promise<any> {
@@ -61,15 +58,12 @@ export class RestaurantService {
     const restaurantsRaw = await this.restaurantRepository.find();
     const restaurants: V2Restaurant[] = await Promise.all(
       restaurantsRaw.map(async (item) => {
-        const reviews = await this.reviewService.getReviewsByRestaurantId({restaurantId: item.id})
-        console.log(item.id)
+        const reviews = await this.reviewService.getReviewsByRestaurantId({
+          restaurantId: item.id,
+        });
+        console.log(item.id);
         const restaurant = {
-          id: item.id,
-          name: item.name,
-          address: item.address,
-          photoUrl: item.photoUrl,
-          activeTime: item.activeTime,
-          isDraft: item.isDraft,
+          ...item,
           rating: reviews.rating,
         };
         return restaurant;

@@ -62,6 +62,7 @@ export class FoodService {
           price: item.price,
           photoUrl: item.photoUrl,
           isFood: item.isFood,
+          restaurantId: item.restaurantId,
           restaurant: restaurant.name,
           rating: reviews.rating,
         };
@@ -317,12 +318,14 @@ export class FoodService {
     const restaurant = await this.restaurantService.getRestaurantById({
       id: foodRaw.restaurantId,
     });
+
     const food = {
       id: foodRaw.id,
       name: foodRaw.name,
       price: foodRaw.price,
       photoUrl: foodRaw.photoUrl,
       isFood: foodRaw.isFood,
+      restaurantId: foodRaw.restaurantId,
       restaurant: restaurant.name,
       rating: reviews.rating,
     };
