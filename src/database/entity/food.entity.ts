@@ -32,6 +32,9 @@ export class Food {
   @Column({ name: 'is_food', type: 'boolean' })
   isFood: boolean;
 
+  @Column({ name: 'description', type: 'varchar', length: 256, nullable: true })
+  description: string;
+
   @OneToMany(() => Review, (review) => review.food)
   reviews: Review[];
 
