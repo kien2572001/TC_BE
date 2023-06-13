@@ -62,6 +62,7 @@ export class FoodService {
           price: item.price,
           photoUrl: item.photoUrl,
           isFood: item.isFood,
+          description: item.description,
           restaurantId: item.restaurantId,
           restaurant: restaurant.name,
           rating: reviews.rating,
@@ -96,6 +97,8 @@ export class FoodService {
           price: item.price,
           photoUrl: item.photoUrl,
           isFood: item.isFood,
+          description: item.description,
+          restaurantId: item.restaurantId,
           restaurant: restaurant.name,
           rating: reviews.rating,
         };
@@ -129,6 +132,8 @@ export class FoodService {
           price: item.price,
           photoUrl: item.photoUrl,
           isFood: item.isFood,
+          description: item.description,
+          restaurantId: item.restaurantId,
           restaurant: restaurant.name,
           rating: reviews.rating,
         };
@@ -162,6 +167,8 @@ export class FoodService {
           price: item.price,
           photoUrl: item.photoUrl,
           isFood: item.isFood,
+          description: item.description,
+          restaurantId: item.restaurantId,
           restaurant: restaurant.name,
           rating: reviews.rating,
         };
@@ -194,6 +201,8 @@ export class FoodService {
           price: item.price,
           photoUrl: item.photoUrl,
           isFood: item.isFood,
+          description: item.description,
+          restaurantId: item.restaurantId,
           restaurant: restaurant.name,
           rating: reviews.rating,
         };
@@ -245,6 +254,7 @@ export class FoodService {
         price: food.price,
         photoUrl: food.photoUrl,
         isFood: food.isFood,
+        description: food.description,
         rating: food.rating,
         restaurant: {
           id: food.restaurant.id,
@@ -292,6 +302,8 @@ export class FoodService {
           price: item.price,
           photoUrl: item.photoUrl,
           isFood: item.isFood,
+          description: item.description,
+          restaurantId: item.restaurantId,
           restaurant: restaurant.name,
           rating: reviews.rating,
         };
@@ -325,6 +337,7 @@ export class FoodService {
       price: foodRaw.price,
       photoUrl: foodRaw.photoUrl,
       isFood: foodRaw.isFood,
+      description: foodRaw.description,
       restaurantId: foodRaw.restaurantId,
       restaurant: restaurant.name,
       rating: reviews.rating,

@@ -91,12 +91,16 @@ export class RestaurantService {
 
     const restaurants: V1Restaurant[] = await Promise.all(
       restaurantsRaw.map(async (item) => {
+        const reviews = await this.reviewService.getReviewsByRestaurantId({
+          restaurantId: item.id,
+        });
         const restaurant = {
           id: item.id,
           name: item.name,
           address: item.address,
           photoUrl: item.photoUrl,
           activeTime: item.activeTime,
+          rating: reviews.rating,
         };
         return restaurant;
       }),

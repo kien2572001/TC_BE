@@ -86,6 +86,15 @@ export class V1FoodDetailByName {
   isFood: boolean;
 
   @ApiProperty({
+    type: 'string',
+    description: 'Food photo url',
+    format: 'string',
+  })
+  @Expose()
+  @IsString()
+  description: string;
+
+  @ApiProperty({
     type: 'number',
     description: 'Rating food',
     format: 'number',

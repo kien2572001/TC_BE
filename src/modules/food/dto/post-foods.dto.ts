@@ -30,4 +30,8 @@ export class V1PostFoodsDto {
   @ApiProperty({ example: true, type: 'boolean', format: 'boolean' })
   @IsBoolean()
   isFood: boolean;
+
+  @ApiProperty({ example: 'Kem ngon', type: 'string', format: 'string' })
+  @IsString()
+  description: string;
 }
