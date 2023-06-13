@@ -14,6 +14,18 @@ export class ReviewService {
     private userService: UserService,
   ) {}
 
+  private roundUpRating(rating) {
+    const integerPart = Math.floor(rating);
+    const decimalPart = parseFloat((rating % 1).toFixed(2));
+    if (decimalPart < 0.25) {
+      return integerPart;
+    } else if (decimalPart < 0.75) {
+      return integerPart + 0.5;
+    } else {
+      return integerPart + 1;
+    }
+  }
+
   async getReviewsByRestaurantId(param): Promise<any> {
     const { restaurantId } = param;
 
@@ -39,7 +51,7 @@ export class ReviewService {
         userAvatar: user.avatar,
       };
     });
-    const rating = ratingSum / reviewRaw.length;
+    const rating = this.roundUpRating(ratingSum / reviewRaw.length);
 
     const result = {
       rating,
@@ -64,7 +76,7 @@ export class ReviewService {
         reviews: [],
       };
     }
-    const rating = ratingSum / reviewRaw.length;
+    const rating = this.roundUpRating(ratingSum / reviewRaw.length);
     const user = await this.userService.getUserById(reviewRaw[0].userId);
     const reviews = reviewRaw.map((review) => {
       return {
