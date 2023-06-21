@@ -39,6 +39,8 @@ export class UserController {
 
   @Roles([ERole.USER])
   @Get('/all')
+  @ApiOperation({ summary: 'Get profile user' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
   getAllUser() {
     return this.userService.getAllUser();
   }
