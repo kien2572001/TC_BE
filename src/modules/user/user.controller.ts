@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Request } from '@nestjs/common';
 import { ERole } from 'src/core/enum/default.enum';
 import { Public } from 'src/decorator/public.decorator';
 import { Roles } from 'src/decorator/roles.decorator';
@@ -7,7 +7,7 @@ import { VUserRegisterDto } from './dto/user-register.dto';
 import { UserService } from './user.service';
 import { VRefreshToken } from './dto/refresh-token.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-@ApiTags('API User')
+
 @Controller('user')
 export class UserController {
   // eslint-disable-next-line no-unused-vars
@@ -39,9 +39,15 @@ export class UserController {
 
   @Roles([ERole.USER])
   @Get('/all')
-  @ApiOperation({ summary: 'Get all user' })
-  @ApiResponse({ status: 403, description: 'Forbidden.' })
   getAllUser() {
     return this.userService.getAllUser();
+  }
+
+  @Roles([ERole.USER])
+  @Get('/profile')
+  @ApiOperation({ summary: 'Get profile user' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  getProfileUser(@Request() req) {
+    return req.user;
   }
 }
