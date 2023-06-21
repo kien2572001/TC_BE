@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Request } from '@nestjs/common';
 import { ReviewService } from './review.service';
 import {
   ApiBearerAuth,
@@ -8,6 +8,9 @@ import {
 } from '@nestjs/swagger';
 import { Public } from 'src/decorator/public.decorator';
 import { V1GetReviewsByUserIdParamDto } from './dto/get-reviews-by-user-id.dto';
+import { Roles } from 'src/decorator/roles.decorator';
+import { ERole } from 'src/core/enum/default.enum';
+import { V1PostRestaurantReviewBodyDto } from './dto/post-restaurant-review.dto';
 @ApiBearerAuth()
 @ApiTags('API Reviews')
 @Controller('reviews')
@@ -37,5 +40,18 @@ export class ReviewController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   getReviewsByUserId(@Param() param: V1GetReviewsByUserIdParamDto) {
     return this.reviewService.getReviewsByUserId(param);
+  }
+
+  @Roles([ERole.USER])
+  @Post('restaurant/:restaurantId')
+  @ApiBearerAuth('BearerAuth')
+  @ApiOperation({ summary: 'Create restaurant review' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  createRestaurant(
+    @Body() body: V1PostRestaurantReviewBodyDto,
+    @Param() param,
+    @Request() req,
+  ) {
+    return this.reviewService.createRestaurantReview(body, param, req);
   }
 }

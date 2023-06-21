@@ -43,15 +43,17 @@ export class ReviewService {
         reviews: [],
       };
     }
-    const user = await this.userService.getUserById(reviewRaw[0].userId);
 
-    const reviews = reviewRaw.map((review) => {
-      return {
-        ...review,
-        userName: user.name,
-        userAvatar: user.avatar,
-      };
-    });
+    const reviews = await Promise.all(
+      reviewRaw.map(async (review) => {
+        const user = await this.userService.getUserById(review.userId);
+        return {
+          ...review,
+          userName: user.name,
+          userAvatar: user.avatar,
+        };
+      }),
+    );
     const rating = this.roundUpRating(ratingSum / reviewRaw.length);
 
     const result = {
@@ -78,14 +80,16 @@ export class ReviewService {
       };
     }
     const rating = this.roundUpRating(ratingSum / reviewRaw.length);
-    const user = await this.userService.getUserById(reviewRaw[0].userId);
-    const reviews = reviewRaw.map((review) => {
-      return {
-        ...review,
-        userName: user.name,
-        userAvatar: user.avatar,
-      };
-    });
+    const reviews = await Promise.all(
+      reviewRaw.map(async (review) => {
+        const user = await this.userService.getUserById(review.userId);
+        return {
+          ...review,
+          userName: user.name,
+          userAvatar: user.avatar,
+        };
+      }),
+    );
     const result = {
       rating,
       reviews: reviews,
@@ -120,10 +124,11 @@ export class ReviewService {
   async createRestaurantReview(
     body: V1PostRestaurantReviewBodyDto,
     param,
+    req,
   ): Promise<any> {
     const { rate, content } = body;
     const { restaurantId } = param;
-    const userId = 1;
+    const userId = req.user.id;
     const newRestaurantReview = this.reviewRepository.save({
       rate,
       content,
