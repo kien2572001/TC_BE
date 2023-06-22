@@ -4,7 +4,7 @@ import { Review } from 'src/database/entity/review.entity';
 import { Repository } from 'typeorm';
 import { V1GetReviewsByUserIdParamDto } from './dto/get-reviews-by-user-id.dto';
 import { UserService } from '../user/user.service';
-import { V1PostRestaurantReviewBodyDto } from './dto/post-restaurant-review.dto';
+import { V1PostReviewBodyDto } from './dto/post-review.dto';
 
 @Injectable()
 export class ReviewService {
@@ -122,7 +122,7 @@ export class ReviewService {
   }
 
   async createRestaurantReview(
-    body: V1PostRestaurantReviewBodyDto,
+    body: V1PostReviewBodyDto,
     param,
     req,
   ): Promise<any> {
@@ -133,6 +133,19 @@ export class ReviewService {
       rate,
       content,
       restaurantId,
+      userId,
+    });
+    return newRestaurantReview;
+  }
+
+  async createFoodReview(body: V1PostReviewBodyDto, param, req): Promise<any> {
+    const { rate, content } = body;
+    const { foodId } = param;
+    const userId = req.user.id;
+    const newRestaurantReview = this.reviewRepository.save({
+      rate,
+      content,
+      foodId,
       userId,
     });
     return newRestaurantReview;
