@@ -347,4 +347,50 @@ export class FoodService {
       message: 'Get food successfully',
     };
   }
+
+  async getAllListFood(): Promise<any> {
+    const foods = await this.foodRepository.find();
+    return {
+      foods,
+      message: 'Get all food successfully',
+    };
+  }
+
+  async searchFoods(query): Promise<any> {
+    const { name } = query;
+    const foods = await this.foodRepository.find({
+      where: {
+        name: Like(`%${name}%`),
+        isDraft: false,
+      },
+    });
+    return {
+      foods,
+      message: 'Successfully',
+    };
+  }
+
+  async updateStatusFood(param, body): Promise<any> {
+    const { id } = param;
+    const { status } = body;
+
+    const food = await this.foodRepository.findOne({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!food) {
+      return {
+        message: 'Food not found',
+      };
+    }
+
+    food.status = status;
+    await this.foodRepository.save(food);
+
+    return {
+      message: 'Update status food successfully',
+    };
+  }
 }

@@ -16,6 +16,14 @@ export class Restaurant {
   @Column({ name: 'photo_url', type: 'varchar', length: 256, nullable: true })
   photoUrl: string;
 
+  @Column({
+    name: 'status',
+    type: 'varchar',
+    length: 100,
+    default: 'INACTIVE',
+  })
+  status: string;
+
   @Column({ name: 'active_time', type: 'varchar', length: 100 })
   activeTime: string;
 

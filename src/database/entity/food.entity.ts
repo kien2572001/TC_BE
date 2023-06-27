@@ -29,6 +29,14 @@ export class Food {
   @Column({ name: 'is_draft', type: 'boolean' })
   isDraft: boolean;
 
+  @Column({
+    name: 'status',
+    type: 'varchar',
+    length: 100,
+    default: 'INACTIVE',
+  })
+  status: string;
+
   @Column({ name: 'is_food', type: 'boolean' })
   isFood: boolean;
 

@@ -113,4 +113,46 @@ export class RestaurantService {
 
     return results;
   }
+
+  async getAllListRestaurant(): Promise<any> {
+    const restaurants = await this.restaurantRepository.find();
+    return {
+      restaurants,
+    };
+  }
+
+  async searchRestaurant(query): Promise<any> {
+    const { name } = query;
+    const restaurantsRaw = await this.restaurantRepository.find({
+      where: {
+        name: Like(`%${name}%`),
+        isDraft: false,
+      },
+    });
+
+    return {
+      restaurants: restaurantsRaw,
+    };
+  }
+
+  async updateStatusRestaurant(param, body): Promise<any> {
+    const { id } = param;
+    const { status } = body;
+
+    const restaurant = await this.restaurantRepository.findOne({
+      where: { id: id },
+    });
+
+    if (restaurant) {
+      restaurant.status = status;
+      await this.restaurantRepository.save(restaurant);
+      return {
+        message: 'Update status restaurant success',
+      };
+    }
+
+    return {
+      message: 'Restaurant not found',
+    };
+  }
 }
