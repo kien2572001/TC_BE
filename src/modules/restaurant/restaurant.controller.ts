@@ -8,6 +8,7 @@ import {
   Param,
   Inject,
   forwardRef,
+  Put,
 } from '@nestjs/common';
 import { Public } from 'src/decorator/public.decorator';
 import { RestaurantService } from './restaurant.service';
@@ -22,6 +23,8 @@ import {
 import { V1PostRestaurantBodyDto } from './dto/post-restaurants.dto';
 import { FoodService } from '../food/food.service';
 import { ReviewService } from '../review/review.service';
+import { ERole } from 'src/core/enum/default.enum';
+import { Roles } from 'src/decorator/roles.decorator';
 @ApiBearerAuth()
 @ApiTags('API Restaurants')
 @Controller('restaurants')
@@ -97,5 +100,29 @@ export class RestaurantController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   getReviewsByRestaurantId(@Param() param) {
     return this.reviewService.getReviewsByRestaurantId(param);
+  }
+
+  @Roles([ERole.ADMIN])
+  @Get('/admin/all')
+  @ApiOperation({ summary: 'Get all restaurant' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  getAllListRestaurant(): Promise<any> {
+    return this.restaurantService.getAllListRestaurant();
+  }
+
+  @Roles([ERole.ADMIN])
+  @Get('/admin/search')
+  @ApiOperation({ summary: 'Get all restaurant' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  searchRestaurant(@Query() query: any): Promise<any> {
+    return this.restaurantService.searchRestaurant(query);
+  }
+
+  @Roles([ERole.ADMIN])
+  @Put('/admin/update/:id')
+  @ApiOperation({ summary: 'Update status restaurant' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  updateStatusRestaurant(@Param() param: any, @Body() body: any): Promise<any> {
+    return this.restaurantService.updateStatusRestaurant(param, body);
   }
 }

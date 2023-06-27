@@ -153,7 +153,7 @@ export class UserService {
     return user;
   }
   async getProfileUser(req) {
-    const { id } = req;
+    const { id } = req.user;
     const userRaw = await this.userRepository.findOne({ where: { id } });
     if (!userRaw) {
       return {

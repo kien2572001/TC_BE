@@ -18,21 +18,21 @@ VALUES
   (7,'admin', 'admin@gmail.com', '$2b$10$lGuDddRkEDS67.ZwUpM9AO5ZAX1gGJQZaKWHopqXlYTVhi0VrLj9C', 'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg', 'ADMIN');
 
 
-INSERT INTO restaurant (id, name, address, photo_url, active_time, is_draft)
+INSERT INTO restaurant (id, name, address, photo_url, active_time, is_draft, status)
 VALUES
-(1,'ハノイの食堂', 'ハノイ市中心部、ホーンキエム地区', 'https://tblg.k-img.com/restaurant/images/Rvw/4564/320x320_square_4564732.jpg', '11:00 - 22:00', false),
-(2,'フーコックレストラン', 'ホーチミン市、ドンコイ通り', 'https://tblg.k-img.com/restaurant/images/Rvw/170359/320x320_square_8ee16e4c8bed69204340e7d00d78469a.jpg', '10:30 - 21:00', false),
-(3,'ダナン焼きそば', 'ダナン市、マイケービーチ', 'https://tblg.k-img.com/restaurant/images/Rvw/56172/320x320_square_56172742.jpg', '12:00 - 23:00', false),
-(4,'ベトナム料理レストラン', 'ハノイ市、オールドクォーター地区', 'https://tblg.k-img.com/restaurant/images/Rvw/135805/320x320_square_135805608.jpg', '10:00 - 22:30', false),
-(5,'サイゴンバー＆レストラン', 'ホーチミン市、ディストリクト1', 'https://tblg.k-img.com/restaurant/images/Rvw/77192/320x320_square_77192284.jpg', '17:00 - 02:00', false),
-(6,'ハロンベイシーフードレストラン', 'クアンニン省、ハロンベイ', 'https://tblg.k-img.com/restaurant/images/Rvw/46683/320x320_square_46683795.jpg', '09:00 - 21:30', false),
-(7,'フーコックフードコート', 'ホーチミン市、フーコック地区', 'https://tblg.k-img.com/restaurant/images/Rvw/73451/320x320_square_73451780.jpg', '10:00 - 22:00', false),
-(8,'Vietストラン', 'ハノイ市、フランス通り', 'https://tblg.k-img.com/restaurant/images/Rvw/36464/320x320_square_36464109.jpg', '11:30 - 23:00', false),
-(9,'ダナンストリートフード', 'ダナン市、ハイヴァン区', 'https://tblg.k-img.com/restaurant/images/Rvw/36464/320x320_square_36464109.jpg', '18:00 - 02:00', false),
-(10,'ベトナム屋台料理', 'ホーチミン市、ベンタイン市場', 'https://tblg.k-img.com/restaurant/images/Rvw/152198/320x320_square_152198474.jpg', '16:00 - 23:30', false),
-(11,'ベトナム屋台料理', 'ホーチミン市、ベンタイン市場', 'https://tblg.k-img.com/restaurant/images/Rvw/33192/320x320_square_33192557.jpg', '16:00 - 23:30', false),
-(12,'ベトナム屋台料理', 'ホーチミン市、ベンタイン市場', 'https://tblg.k-img.com/restaurant/images/Rvw/206149/320x320_square_12fd94e8bbcde918098cc3de9beae59c.jpg', '16:00 - 23:30', false),
-(13,'ベトナム屋台料理', 'ホーチミン市、ベンタイン市場', 'https://tblg.k-img.com/restaurant/images/Rvw/183339/320x320_square_7953cc3c0ebbda857d3aca4223bebb18.jpg', '16:00 - 23:30', false);
+(1, 'ハノイの食堂', 'ハノイ市中心部、ホーンキエム地区', 'https://tblg.k-img.com/restaurant/images/Rvw/4564/320x320_square_4564732.jpg', '11:00 - 22:00', false, 'ACTIVE'),
+(2, 'フーコックレストラン', 'ホーチミン市、ドンコイ通り', 'https://tblg.k-img.com/restaurant/images/Rvw/170359/320x320_square_8ee16e4c8bed69204340e7d00d78469a.jpg', '10:30 - 21:00', false, 'ACTIVE'),
+(3, 'ダナン焼きそば', 'ダナン市、マイケービーチ', 'https://tblg.k-img.com/restaurant/images/Rvw/56172/320x320_square_56172742.jpg', '12:00 - 23:00', false, 'ACTIVE'),
+(4, 'ベトナム料理レストラン', 'ハノイ市、オールドクォーター地区', 'https://tblg.k-img.com/restaurant/images/Rvw/135805/320x320_square_135805608.jpg', '10:00 - 22:30', false, 'ACTIVE'),
+(5, 'サイゴンバー＆レストラン', 'ホーチミン市、ディストリクト1', 'https://tblg.k-img.com/restaurant/images/Rvw/77192/320x320_square_77192284.jpg', '17:00 - 02:00', false, 'ACTIVE'),
+(6, 'ハロンベイシーフードレストラン', 'クアンニン省、ハロンベイ', 'https://tblg.k-img.com/restaurant/images/Rvw/46683/320x320_square_46683795.jpg', '09:00 - 21:30', false, 'ACTIVE'),
+(7, 'フーコックフードコート', 'ホーチミン市、フーコック地区', 'https://tblg.k-img.com/restaurant/images/Rvw/73451/320x320_square_73451780.jpg', '10:00 - 22:00', false, 'ACTIVE'),
+(8, 'Vietストラン', 'ハノイ市、フランス通り', 'https://tblg.k-img.com/restaurant/images/Rvw/36464/320x320_square_36464109.jpg', '11:30 - 23:00', false, 'ACTIVE'),
+(9, 'ダナンストリートフード', 'ダナン市、ハイヴァン区', 'https://tblg.k-img.com/restaurant/images/Rvw/36464/320x320_square_36464109.jpg', '18:00 - 02:00', false, 'ACTIVE'),
+(10, 'ベトナム屋台料理', 'ホーチミン市、ベンタイン市場', 'https://tblg.k-img.com/restaurant/images/Rvw/152198/320x320_square_152198474.jpg', '16:00 - 23:30', false, 'ACTIVE'),
+(11, 'ベトナム屋台料理', 'ホーチミン市、ベンタイン市場', 'https://tblg.k-img.com/restaurant/images/Rvw/33192/320x320_square_33192557.jpg', '16:00 - 23:30', false, 'ACTIVE'),
+(12, 'ベトナム屋台料理', 'ホーチミン市、ベンタイン市場', 'https://tblg.k-img.com/restaurant/images/Rvw/206149/320x320_square_12fd94e8bbcde918098cc3de9beae59c.jpg', '16:00 - 23:30', false, 'ACTIVE'),
+(13, 'ベトナム屋台料理', 'ホーチミン市、ベンタイン市場', 'https://tblg.k-img.com/restaurant/images/Rvw/183339/320x320_square_7953cc3c0ebbda857d3aca4223bebb18.jpg', '16:00 - 23:30', false, 'ACTIVE');
 
 
 INSERT INTO food (id, name, photo_url, price, restaurant_id, is_draft, is_food, description)

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Query, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Query, Body, Param, Put } from '@nestjs/common';
 import { Public } from 'src/decorator/public.decorator';
 import { FoodService } from './food.service';
 import {
@@ -11,6 +11,8 @@ import { V1FoodByName } from './entities/get-foods-by-name.entity';
 import { V1GetFoodsByNameParamDto } from './dto/get-foods-by-name.dto';
 import { V1PostFoodsDto } from './dto/post-foods.dto';
 import { ReviewService } from '../review/review.service';
+import { ERole } from 'src/core/enum/default.enum';
+import { Roles } from 'src/decorator/roles.decorator';
 
 @ApiBearerAuth()
 @ApiTags('API Foods')
@@ -91,5 +93,29 @@ export class FoodController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   getReviewsByRestaurantId(@Param() param) {
     return this.reviewService.getReviewsByFoodId(param);
+  }
+
+  @Roles([ERole.ADMIN])
+  @Get('/admin/all')
+  @ApiOperation({ summary: 'Get all restaurant' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  getAllListFood(): Promise<any> {
+    return this.foodService.getAllListFood();
+  }
+
+  @Roles([ERole.ADMIN])
+  @Get('/admin/search')
+  @ApiOperation({ summary: 'Get all restaurant' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  searchFoods(@Query() query: any): Promise<any> {
+    return this.foodService.searchFoods(query);
+  }
+
+  @Roles([ERole.ADMIN])
+  @Put('/admin/update/:id')
+  @ApiOperation({ summary: 'Update status restaurant' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  updateStatusFood(@Param() param: any, @Body() body: any): Promise<any> {
+    return this.foodService.updateStatusFood(param, body);
   }
 }
