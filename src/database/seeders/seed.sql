@@ -6,16 +6,16 @@ DELETE FROM food;
 DELETE FROM restaurant;
 DELETE FROM users;
 
-
+-- MK 123456abc
 INSERT INTO users (id,user_name, email, password, avatar, role)
 VALUES
-  (1,'Viet', 'user1@example.com', 'password1', 'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg', 'USER'),
-  (2,'QAnh', 'user2@example.com', 'password2', 'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg', 'USER'),
-  (3,'Kien', 'user3@example.com', 'password3', 'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg', 'USER'),
-  (4,'vuong', 'user2sa0@example.com', 'password20', 'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg', 'USER'),
-  (5,'Hoang', 'user2s0@example.com', 'password20', 'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg', 'USER'),
-  (6,'Dung', 'user2a0@example.com', 'password20', 'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg', 'USER');
-
+  (1,'Viet', 'viet@gmail.com', '$2b$10$lGuDddRkEDS67.ZwUpM9AO5ZAX1gGJQZaKWHopqXlYTVhi0VrLj9C', 'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg', 'USER'),
+  (2,'QAnh', 'qanh@gmail.com', '$2b$10$lGuDddRkEDS67.ZwUpM9AO5ZAX1gGJQZaKWHopqXlYTVhi0VrLj9C', 'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg', 'USER'),
+  (3,'Kien', 'kien@gmail.com', '$2b$10$lGuDddRkEDS67.ZwUpM9AO5ZAX1gGJQZaKWHopqXlYTVhi0VrLj9C', 'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg', 'USER'),
+  (4,'vuong', 'vuong@gmail.com', '$2b$10$lGuDddRkEDS67.ZwUpM9AO5ZAX1gGJQZaKWHopqXlYTVhi0VrLj9C', 'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg', 'USER'),
+  (5,'Hoang', 'hoang@gmail.com', '$2b$10$lGuDddRkEDS67.ZwUpM9AO5ZAX1gGJQZaKWHopqXlYTVhi0VrLj9C', 'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg', 'USER'),
+  (6,'Dung', 'dung@gmail.com', '$2b$10$lGuDddRkEDS67.ZwUpM9AO5ZAX1gGJQZaKWHopqXlYTVhi0VrLj9C', 'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg', 'USER'),
+  (7,'admin', 'admin@gmail.com', '$2b$10$lGuDddRkEDS67.ZwUpM9AO5ZAX1gGJQZaKWHopqXlYTVhi0VrLj9C', 'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg', 'ADMIN');
 
 
 INSERT INTO restaurant (id, name, address, photo_url, active_time, is_draft)
