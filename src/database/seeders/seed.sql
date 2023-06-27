@@ -1,6 +1,3 @@
-
-
-
 DELETE FROM review;
 DELETE FROM food;
 DELETE FROM restaurant;
@@ -37,36 +34,47 @@ VALUES
 
 INSERT INTO food (id, name, photo_url, price, restaurant_id, is_draft, is_food, description)
 VALUES
-(1, 'ラーメン', 'https://mall.premium-water.net/img/goods/L/KWK-007_0d46f33720c843c18b67bd9cd4922e39.jpg', 50000, 1, false, true, '日本の伝統的な麺料理です。スープと麺、具材が特徴で、様々なバリエーションがあります。'),
-(2, '寿司', 'https://tw.savorjapan.com/gg/content_image/t0052_001_20180122023039.jpg', 30000, 1, false, true, '新鮮な魚介類や野菜を寿司飯と組み合わせた日本の伝統的な料理です。'),
-(3, 'うどん', 'https://7premium.jp/files/recipe/2239/4901990373548_001.jpg', 45000, 1, false, true, '太い麺が特徴の日本の麺料理です。出汁と一緒に食べることが多く、地域ごとに異なる味わいがあります。'),
-(4, 'お好み焼き', 'https://static.nichireifoods.co.jp/media/wp-content/uploads/2022/10/2210_05_okonomiyaki_02.jpg', 40000, 2, false, true, '大阪や広島などで有名な日本の鉄板焼き料理です。キャベツや豚肉を主な材料とし、ソースやマヨネーズをトッピングします。'),
-(5, 'たこ焼き', 'https://www.otafuku.co.jp/recipe/cook/taco/assets/img/main_image01.jpg', 35000, 2, false, true, '小麦粉の生地にタコやネギを入れ、特殊な鉄板で丸い形に焼き上げる日本の屋台料理です。ソースやマヨネーズをかけて食べます。'),
-(6, 'てんぷら', 'https://cdn.macaro-ni.jp/assets/img/shutterstock/shutterstock_185492741.jpg', 55000, 2, false, true, '日本の伝統的な揚げ物料理で、海鮮や野菜などを衣で包んで揚げたものです。サクサクとした食感が特徴です。'),
-(7, 'すき焼き', 'https://www.sirogohan.com/_files/recipe/images/sukiyaki/sukiyaki7889.JPG', 60000, 3, false, true, '和牛や野菜を甘辛いたれで煮込んだ日本の鍋料理です。具材を生卵につけて食べるのが一般的です。'),
-(8, 'お寿司', 'https://hina-sushi.com/wp-content/uploads/2022/03/pixta_66584063_M-1024x682.jpg', 35000, 4, false, true, '新鮮な魚介類や野菜を寿司飯と組み合わせた日本の伝統的な料理です。'),
-(9, 'とんかつ', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbHPgC4FTnSuJifd8_2StYWe8KBSkcSfE9Wk3Gd3WRsfPxoE3NCGv8W5s2iWTfe7Y7Wu0&usqp=CAU', 45000, 4, false, true, '豚肉をパン粉で衣をつけて揚げた日本の料理です。キャベツやソースと一緒に食べるのが一般的です。'),
-(10, '焼き鳥', 'https://video.kurashiru.com/production/recipe_card_contents/cover_image/120787/large_image_original.jpg', 30000, 5, false, true, '串に刺した鶏肉を焼いた日本の屋台料理です。タレや塩で味付けされています。'),
-(11, 'もんじゃ焼き', 'https://asset.recipe-blog.jp/cache/images/recipe/e8/7a/cef8a38ddc0711045d351225e2e6ec2abc5ae87a.640x640.cut.jpg', 40000, 5, false, true, '鉄板で具材を焼き、生地と一緒に食べる日本の鉄板焼き料理です。キャベツや海鮮を使用します。'),
-(12, 'そば', 'https://resources.matcha-jp.com/resize/720x2000/2022/01/14-120568.webp', 50000, 6, false, true, '細い麺が特徴の日本の麺料理です。温かい汁に入れて食べることが一般的です。'),
-(13, 'おでん', 'https://park.ajinomoto.co.jp/wp-content/uploads/2021/07/802184.jpeg', 40000, 6, false, true, '大根やこんにゃくなどの具材をだし汁で煮込んだ日本の料理です。あんかけやからしをつけて食べます。'),
-(14, '天丼', 'https://resources.matcha-jp.com/resize/480x2000/2019/10/16-88343.webp', 55000, 7, false, true, '海鮮や野菜を天ぷらにしてごはんの上に盛り付けた日本の丼物料理です。つゆやタレをかけて食べます。'),
-(15, 'おにぎり', 'https://mi-journey.jp/foodie/wp-content/uploads/2023/03/230404onigiri1.jpg', 30000, 7, false, true, 'ごはんを手で握って形を作り、海苔で包んだ日本のお弁当の一品です。具材を中に入れることもあります。'),
-(16, 'うな丼', 'https://gigaplus.makeshop.jp/unagijin/page/bowl-and-box/bowl-and-box01.jpg', 60000, 7, false, true, '鰻の蒲焼をごはんの上に乗せた日本の丼物料理です。特製のたれをかけて食べます。'),
-(17, 'たい焼き', 'https://tshop.r10s.jp/nebamura/cabinet/imgrc0087858999.jpg?fitin=720%3A720', 20000, 8, false, true, '日本の伝統的な焼き菓子で、中にはあんこ（甘いこしあん）が入っています。外側はサクッとしており、中のあんこはふんわりとした食感です。'),
-(18, 'そば', 'https://cdn.macaro-ni.jp/assets/img/shutterstock/shutterstock_74459992.jpg?p=1x1', 40000, 8, false, true, '細長い麺が特徴の日本の麺料理で、主に蕎麦粉を使用しています。つゆや薬味と一緒に食べることが一般的です。'),
-(19, 'もんじゃ焼き', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqTqlD_XmVZ05uUTZPXBk6XHHgVGv_hMHxVg&usqp=CAU', 50000, 9, false, true, '関東地方（特に東京）で有名な鉄板焼き料理で、主にキャベツや豚肉、海鮮などの具材を生地と一緒に焼きます。ソースやマヨネーズをかけて食べます。'),
-(20, 'おでん', 'https://image.delishkitchen.tv/recipe/321081425249961197/1.jpg?version=1664336162', 30000, 9, false, true, '日本の冬季に食べられる温かい煮物料理です。大根やこんにゃく、たまごなどの具材を出汁で煮込んだもので、様々なバリエーションがあります。'),
-(21, '唐揚げ', 'https://www.nichireifoods.co.jp/media/wp-content/uploads/2023/02/2302_03_karaage_01.jpg', 35000, 10, false, true, '鶏肉を衣で揚げた日本の料理です。外側はカリッとしており、中はジューシーで柔らかい食感です。ソースやマヨネーズを添えて食べることが一般的です。'),
-(22, 'お茶漬け', 'https://park.ajinomoto.co.jp/wp-content/uploads/2018/03/707512.jpeg', 25000, 10, false, true, 'ご飯の上にお茶やだしをかけて食べる日本の料理です。具材としては魚や海苔、梅干しなどが使われることがあります。シンプルな味わいでありながら、食欲をそそる一品です。'),
-(23, '焼きそば', 'https://www.oisoya.jp/wp-content/uploads/2020/03/howto_recepi-1024x682.jpg', 40000, 11, false, true, '中華麺を野菜や肉などと一緒に炒めた料理で、ソースやお好み焼きソースを使って味付けされます。香ばしくてボリュームのある一品です。'),
-(24, 'おにぎり', 'https://tk.ismcdn.jp/mwimgs/a/f/1200w/img_af81002dcc7706242e6b6153097e0f05216012.jpg', 15000, 11, false, true, 'ご飯を手で握り、海苔で包んだ日本のお弁当の一部です。具材としては梅干し、鮭、昆布などが一般的です。手軽に食べられるおかずとして人気があります。'),
-(25, '天ぷら', 'https://kogaraya.jp/horie/wp-content/uploads/sites/4/alacarte_tempura-assortment.jpg', 50000, 12, false, true, '野菜や海鮮類を衣で包み、油で揚げた料理です。サクサクとした食感と香ばしい味わいが特徴で、天つゆや塩で食べることが一般的です。'),
-(26, '豚まん', 'https://horai.itembox.design/product/000/000000000010/000000000010-01.jpg?t=20230605175231', 30000, 12, false, true, 'もちもちした皮で包まれた豚肉の蒸しパンです。中には豚肉のほか、野菜やキノコなどが入っています。ふんわりとした食感とジューシーな具材が特徴です。'),
-(27, 'おでん', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2OtloMahcjsdV5dZpUfauPlazbFCkGFRU0A&usqp=CAU', 40000, 13, false, true, '日本の冬の定番料理で、さまざまな具材を出汁で煮込んだものです。大根やこんにゃく、たまごなどがよく使われ、あったかい状態で食べることが多いです。'),
-(28, 'そば', 'https://image.delishkitchen.tv/recipe/302856083129500690/1.jpg?version=1616029622', 45000, 13, false, true, 'そば粉を使って作られる日本の麺料理です。茹でた麺をつゆにつけて食べることが一般的で、夏には冷たいざるそばも楽しまれます。'),
-(29, 'お好み焼き', 'https://www.otafuku.co.jp/recipe/cook/hirosima/assets/img/main_image01.jpg', 40000, 13, false, true, '大阪や広島などで有名な日本の鉄板焼き料理です。キャベツや豚肉を主な材料とし、ソースやマヨネーズをトッピングします。'),
-(30, 'たこ焼き', 'https://www.nippn.co.jp/recipe/powder/takoyaki/detail/__icsFiles/afieldfile/2020/04/09/1216570_p.jpg', 35000, 13, false, true, '小麦粉の生地にタコやネギを入れ、特殊な鉄板で丸い形に焼き上げる日本の屋台料理です。ソースやマヨネーズをかけて食べます。');
+(1, 'フォー', 'https://lee.hpplus.jp/wp-content/uploads/2022/06/14/DMA-180515-040-1024x958.jpg', 50000, 1, false, true, 'ベトナムの伝統的な麺料理で、スープと麺が特徴で、さまざまなトッピングがあります。'),
+(2, 'バインミー', 'https://www.asahibeer.co.jp/tools/image_quality.psp.html?CMD=onAspect&PATH=/web-service/common/util/recipe/pic/0000002467a.jpg&w=750', 30000, 1, false, true, 'ベトナム発祥のパンで、さまざまな具材で詰められた美味しいサンドイッチです。'),
+(3, 'ゴイクオン', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Summer_roll.jpg/800px-Summer_roll.jpg', 45000, 2, false, true, '新鮮な野菜やハーブ、豚肉などを使ったベトナムのサラダで、さっぱりとした味わいが特徴です。'),
+(4, 'ベトナム春巻き', 'https://www.ienomistyle.com/sites/default/files/styles/news_contents_img1/public/article_img1/recipe200331_03.jpg', 35000, 2, false, true, '米紙で包まれた野菜やエビ、豚肉などの具材を詰めたベトナムの伝統的な巻き物です。'),
+(5, 'ボンボー・ヒュー', 'https://www.marionskitchen.com/wp-content/uploads/2021/09/Bun-Bo-Hue8624.jpg', 60000, 3, false, true, 'ベトナム中部のフエ地方の伝統料理で、牛肉や豚肉、魚などを使ったスープです。'),
+(6, 'バインセオ', 'https://www.cotta.jp/special/article/wp-content/uploads/2023/02/20230212_yochinmama_eye.jpg', 40000, 3, false, true, '薄くてパリッとした皮に、豚肉やエビ、豆もやしなどが入ったベトナムのクレープです。'),
+(7, 'コムタム', 'https://wkvetter.com/wp-content/uploads/2020/01/116main-e1578374127169.jpg', 55000, 4, false, true, '香り高いジャスミンライスに、グリルされた肉やサラダ、魚のソースなどが添えられたベトナムのご飯料理です。'),
+(8, 'ベトナムコーヒー', 'https://danang.style/upload/InfoContents/images/img_ja1_365_5f55f240-3e70-4e42-b5b0-6d159d07c69f.jpg', 25000, 4, false, false, '濃厚で香り高いコーヒーで、コンデンスミルクを加えて飲むのが特徴です。'),
+(9, 'フォー', 'https://lee.hpplus.jp/wp-content/uploads/2022/06/14/DMA-180515-040-1024x958.jpg', 50000, 4, false, true, '米粉の麺を使ったベトナムのスープで、牛肉や鶏肉、新鮮なハーブがたっぷりと入っています。'),
+(10, 'バインミー', 'https://www.asahibeer.co.jp/tools/image_quality.psp.html?CMD=onAspect&PATH=/web-service/common/util/recipe/pic/0000002467a.jpg&w=750', 40000, 5, false, true, 'フレンチバゲットに詰められたベトナムのサンドイッチで、パテ、豚肉、野菜などが入っています。'),
+(11, 'ミ・クアン', 'https://cheritheglutton.com/wp-content/uploads/2019/05/3AnhEm04.jpg', 45000, 5, false, true, '米粉の麺を使ったベトナムのスープで、牛肉や豚肉、海鮮、野菜が具材として使われます。'),
+(12, 'ベトナムコーヒー', 'https://danang.style/upload/InfoContents/images/img_ja1_365_5f55f240-3e70-4e42-b5b0-6d159d07c69f.jpg', 18000, 6, false, false, '鶏肉を使ったベトナムのカレーで、ココナッツミルクをベースにしたスパイシーな味わいが特徴です。'),
+(13, 'ミ・クアン・ボ', 'https://cheritheglutton.com/wp-content/uploads/2019/05/3AnhEm04.jpg', 55000, 6, false, true, '麺と野菜、海鮮、豚肉などを使ったベトナムの鍋料理で、スープとしても食べられます。'),
+(14, 'バインミー・チャー・シュー', 'https://i.kobe-np.co.jp/news/sougou/202302/img/b_16044836.jpg', 42000, 7, false, true, 'バインミーにチャーシュー（焼豚）を詰めたベトナムの料理で、絶妙なバランスの味わいが楽しめます。'),
+(15, 'チャー・ゴーイ', 'https://imagel.sekainavi.com/images/templates/VIETNAM/5024256/1ef97fe4beb835da_S.jpg', 25000, 8, false, true, 'ベトナムのミルクティーで、凍ったコンデンスミルクと紅茶が特徴です。'),
+(16, 'チェー', 'https://www.vietnam-sketch.com/wp-content/uploads/2020/04/VNS_202005_HanoiPress_RauCauChanhLeo-edit-570x380.jpg', 35000, 8, false, false, 'ベトナムのココナッツミルクとフルーツを使ったスムージーで、爽やかな味わいが楽しめます。'),
+(17, 'スー・ダー・フエ', 'https://vinmec-prod.s3.amazonaws.com/images/20220120_124148_031610_tra-thao-moc.max-800x800.jpg', 30000, 9, false, false, 'ベトナムのハーブティーで、ハーブの香りと風味が特徴的です。'),
+(18, 'コム・ラー', 'https://cdn.tgdd.vn/Files/2021/08/03/1372738/cach-lam-com-rang-thap-cam-vua-dep-mat-lai-ngon-mieng-202206031508341436.jpg', 40000, 9, false, true, 'ベトナムの黒糖コーヒーで、濃厚で甘い味わいが楽しめます。'),
+(19, 'カ・プー・チャン', 'https://lambanhngon.com/news_pictures/ubv1605250661.jpg', 32000, 10, false, true, 'ベトナムのコーヒーゼリーで、コーヒーの香りとぷるぷるとした食感が特徴です。'),
+(20, 'ソ・ダー・チャン', 'https://assets.htv.com.vn/Images/1/News/87791/1.png', 28000, 10, false, false, 'ベトナムのヨーグルトドリンクで、さっぱりとした口当たりが楽しめます。'),
+(21, 'フー・ティウ・ナム・ヴァン', 'https://img01.vietnhat.tv/usr/c/h/o/cholon/datthanhsk4k.jpg', 30000, 11, false, true, 'ベトナムの米粉スープで、牛肉や豚肉、シーフードと共に食べられます。'),
+(22, 'プー・チャ', 'https://delightfulplate.com/wp-content/uploads/2018/08/Vietnamese-Grilled-Pork-Meatballs-with-Vermicelli-Noodles-Bun-Cha-2.jpg', 35000, 11, false, true, 'ベトナムの焼きそばで、豚肉やエビ、野菜と共に炒められます。'),
+(23, 'コム・タム', 'https://wkvetter.com/wp-content/uploads/2020/01/116main-e1578374127169.jpg', 32000, 12, false, true, 'ベトナムの炊き込みご飯で、豚肉やエビ、サラダと一緒に食べられます。'),
+(24, 'ブン・チャー・カ・ダ', 'https://gucci-vietnam.com/wp-content/uploads/2016/05/PC011775.jpg', 40000, 12, false, true, 'ベトナムの冷たい麺料理で、豚肉、エビ、野菜と共に食べられます。'),
+(25, 'トム・ラン', 'https://cdn.tgdd.vn/2022/09/CookDish/2-cach-lam-tom-chien-xu-rao-dau-gion-rum-ai-cung-me-avt-1200x676.jpg', 38000, 13, false, true, 'ベトナムのエビのフライで、サクサクとした食感が特徴です。'),
+(26, 'ベトナム風サラダ', 'https://cdn.tgdd.vn/2021/11/CookRecipe/Avatar/thum-1-1.jpg', 28000, 13, false, true, 'ベトナムのガラス麺サラダで、エビや豚肉、野菜と共に食べられます。'),
+(27, 'ブン・チャー・カ・ダ', 'https://gucci-vietnam.com/wp-content/uploads/2016/05/PC011775.jpg', 30000, 13, false, true, 'ベトナムの牛肉のヌードルスープで、さっぱりとした味わいが楽しめます。'),
+(28, 'ゴイクオン', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Summer_roll.jpg/800px-Summer_roll.jpg', 35000, 13, false, true, 'ベトナムの春巻きで、豚肉やエビ、野菜が具材となっています。'),
+(29, 'ベトナムコーヒー', 'https://danang.style/upload/InfoContents/images/img_ja1_365_5f55f240-3e70-4e42-b5b0-6d159d07c69f.jpg', 32000, 13, false, false, 'ベトナムの冷たいベトナムコーヒーで、氷とコンデンスミルクが特。'),
+(30, 'チェー・ダー', 'https://bizweb.dktcdn.net/100/004/714/articles/ca-phe-da.png?v=1586258829727', 12000, 1, false, false, 'ベトナムの伝統的なお茶で、香り高くてリフレッシュメント効果があります。'),
+(31, 'ビール', 'https://salt.tikicdn.com/ts/product/5b/8d/20/27172d82b5c2f3a6aa4c41f0b6fe62f1.jpg', 15000, 2, false, false, 'ベトナムのビールで、軽やかな味わいと爽快感が特徴です。'),
+(32, 'コー・ダー', 'https://bizweb.dktcdn.net/100/452/264/products/ca-phe-den.jpg?v=1652252354573', 10000, 2, false, false, 'ベトナムのコーヒーで、濃厚な味わいと豊かな香りが楽しめます。'),
+(33, 'ミルクコーヒー', 'https://comgasg.com/wp-content/uploads/2019/11/cafe-sua-da.jpg', 14000, 3, false, false, 'ベトナムの牛乳コーヒーで、ミルクのまろやかさとコーヒーの苦味が絶妙です。'),
+(34, 'オレンジジュース', 'https://static-images.vnncdn.net/files/publish/2022/6/5/nuoccam-365.jpg', 12000, 3, false, false, 'ベトナムの柑橘類のジュースで、さっぱりとした酸味と甘さがあります。'),
+(35, 'チェー・サイ・ダー', 'https://pds.exblog.jp/pds/1/201008/09/04/f0179404_2222121.jpg', 10000, 4, false, false, 'ベトナムの緑茶で、すっきりとした味わいと健康効果が期待できます。'),
+(36, 'ハーブティー', 'https://image.news.livedoor.com/newsimage/b/2/b217a_1556_6102cc10_df1064e6.jpg', 12000, 4, false, false, 'ベトナムのハーブティーで、リラックス効果や消化促進効果があります。'),
+(37, 'チェー・レー', 'https://cdn.tgdd.vn/2020/06/CookRecipe/GalleryStep/thanh-pham-117.jpg', 13000, 5, false, false, 'ベトナムのジャスミンティーで、芳醇な香りと優雅な味わいが特徴です。'),
+(38, 'チェー', 'https://www.vietnam-sketch.com/wp-content/uploads/2020/04/VNS_202005_HanoiPress_RauCauChanhLeo-edit-570x380.jpg', 16000, 5, false, false, 'ベトナムのフルーツスムージーで、新鮮な果物の風味が楽しめます。'),
+(39, 'チェー・ルアット', 'https://cdn.tgdd.vn/2021/11/CookRecipe/Avatar/che-dau-den-nuoc-cot-dua-thumbnail.jpg', 11000, 6, false, false, 'ベトナムのハーブティーで、健胃効果やストレス解消効果があります。'),
+(40, '水筒', 'https://cooponline.vn/wp-content/uploads/2015/05/Lavie-Nuoc-khoang-thien-nhien-chai-500ML.jpg', 15000, 6, false, false, 'ベトナムのミントティーで、さっぱりとした味わいと口当たりが特徴です。');
+
 
 INSERT INTO review (id,rate, content, food_id, restaurant_id, user_id)
 VALUES
