@@ -152,6 +152,55 @@ export class UserService {
     const user = await this.userRepository.findOne({ where: { id } });
     return user;
   }
+  async getProfileUser(req) {
+    const { id } = req;
+    const userRaw = await this.userRepository.findOne({ where: { id } });
+    if (!userRaw) {
+      return {
+        message: 'Not found user',
+      };
+    }
+    const user = {
+      id: userRaw.id,
+      name: userRaw.name,
+      email: userRaw.email,
+      avatar: userRaw.avatar,
+      password: userRaw.password,
+    };
+    const result = {
+      message: 'Success',
+      user,
+    };
+    return result;
+  }
+
+  async updateProfileUser(body, req) {
+    const { id } = req.user;
+    const { name, email, avatar, password } = body;
+    if (!id) {
+      return {
+        message: 'Failed',
+      };
+    }
+
+    this.userRepository.update(
+      { id },
+      {
+        name,
+        email,
+        avatar,
+        password,
+      },
+    );
+
+    return {
+      id,
+      name,
+      email,
+      avatar,
+      password,
+    };
+  }
 
   async updateUserById(
     id: string,
