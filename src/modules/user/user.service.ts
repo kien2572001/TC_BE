@@ -177,28 +177,31 @@ export class UserService {
   async updateProfileUser(body, req) {
     const { id } = req.user;
     const { name, email, avatar, password } = body;
+    const salt = await bcrypt.genSalt();
+    const hashPassword = await bcrypt.hash(password, salt);
+
     if (!id) {
       return {
         message: 'Failed',
       };
     }
 
-    this.userRepository.update(
-      { id },
-      {
-        name,
-        email,
-        avatar,
-        password,
-      },
-    );
+    const user = await this.userRepository.findOne({ where: { id } });
+
+    if (user) {
+      user.name = name;
+      user.email = email;
+      user.avatar = avatar;
+      user.password = hashPassword;
+      await this.userRepository.save(user);
+      return {
+        message: 'Success',
+        user,
+      };
+    }
 
     return {
-      id,
-      name,
-      email,
-      avatar,
-      password,
+      message: 'Failed',
     };
   }
 
