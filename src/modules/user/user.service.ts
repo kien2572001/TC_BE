@@ -178,7 +178,8 @@ export class UserService {
     const { id } = req.user;
     const { name, email, avatar, password } = body;
     const salt = await bcrypt.genSalt();
-    const hashPassword = await bcrypt.hash(password, salt);
+    let hashPassword = null;
+    if (password) hashPassword = await bcrypt.hash(password, salt);
 
     if (!id) {
       return {
@@ -189,10 +190,10 @@ export class UserService {
     const user = await this.userRepository.findOne({ where: { id } });
 
     if (user) {
-      user.name = name;
-      user.email = email;
-      user.avatar = avatar;
-      user.password = hashPassword;
+      if (name) user.name = name;
+      if (email) user.email = email;
+      if (avatar) user.avatar = avatar;
+      if (password) user.password = hashPassword;
       await this.userRepository.save(user);
       return {
         message: 'Success',
