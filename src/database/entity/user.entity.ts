@@ -1,4 +1,4 @@
-import { ERole } from 'src/core/enum/default.enum';
+import { ERole, EStatus } from 'src/core/enum/default.enum';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Review } from './review.entity';
 
@@ -30,9 +30,9 @@ export class User {
     name: 'status',
     type: 'varchar',
     length: 100,
-    default: 'ACTIVE',
+    default: EStatus.ACTIVE,
   })
-  status: string;
+  status: EStatus;
 
   @Column({ name: 'role', type: 'enum', enum: ERole, default: ERole.USER })
   role: ERole;
