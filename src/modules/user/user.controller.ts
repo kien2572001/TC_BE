@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post, Put, Request } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  Request,
+} from '@nestjs/common';
 import { ERole } from 'src/core/enum/default.enum';
 import { Public } from 'src/decorator/public.decorator';
 import { Roles } from 'src/decorator/roles.decorator';
@@ -59,5 +68,29 @@ export class UserController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   updateProfileUser(@Body() body, @Request() req) {
     return this.userService.updateProfileUser(body, req);
+  }
+
+  @Roles([ERole.ADMIN])
+  @Get('/admin/all')
+  @ApiOperation({ summary: 'Get all user' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  getAllListRestaurant(): Promise<any> {
+    return this.userService.getAllListUser();
+  }
+
+  @Roles([ERole.ADMIN])
+  @Get('/admin/search')
+  @ApiOperation({ summary: 'Get all restaurant' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  searchRestaurant(@Query() query: any): Promise<any> {
+    return this.userService.searchUser(query);
+  }
+
+  @Roles([ERole.ADMIN])
+  @Put('/admin/update/:id')
+  @ApiOperation({ summary: 'Update status restaurant' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  updateStatusRestaurant(@Param() param: any, @Body() body: any): Promise<any> {
+    return this.userService.updateStatusUser(param, body);
   }
 }

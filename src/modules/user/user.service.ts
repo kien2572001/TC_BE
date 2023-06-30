@@ -12,7 +12,7 @@ import {
   IResponseAuthUser,
   IResponseRefreshToken,
 } from 'src/global/auth/interface/auth.interface';
-import { DeepPartial, EntityManager, Repository } from 'typeorm';
+import { DeepPartial, EntityManager, Like, Repository } from 'typeorm';
 import { VRefreshToken } from './dto/refresh-token.dto';
 import { VUserLoginDto } from './dto/user-login.dto';
 import { VUserRegisterDto } from './dto/user-register.dto';
@@ -215,5 +215,55 @@ export class UserService {
       ? entityManager.getRepository(User)
       : this.userRepository;
     return await userRepository.update(id, data);
+  }
+
+  //Admin
+  async getAllListUser(): Promise<any> {
+    const users = await this.userRepository.find({
+      where: {
+        role: ERole.USER,
+      },
+    });
+    return {
+      users,
+    };
+  }
+
+  async searchUser(query): Promise<any> {
+    const { name } = query;
+    const usersRaw = await this.userRepository.find({
+      where: {
+        name: Like(`%${name}%`),
+        role: ERole.USER,
+      },
+    });
+
+    return {
+      users: usersRaw,
+    };
+  }
+
+  async updateStatusUser(param, body): Promise<any> {
+    const { id } = param;
+    const { status } = body;
+
+    const user = await this.userRepository.findOne({
+      where: {
+        id: id,
+        role: ERole.USER,
+      },
+    });
+
+    if (user) {
+      user.status = status;
+      await this.userRepository.save(user);
+      return {
+        message: 'Update user status success',
+      };
+    }
+
+    return {
+      message: 'User not found',
+    };
   }
 }
