@@ -26,6 +26,14 @@ export class User {
   })
   avatar: string;
 
+  @Column({
+    name: 'status',
+    type: 'varchar',
+    length: 100,
+    default: 'ACTIVE',
+  })
+  status: string;
+
   @Column({ name: 'role', type: 'enum', enum: ERole, default: ERole.USER })
   role: ERole;
 

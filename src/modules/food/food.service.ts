@@ -46,7 +46,11 @@ export class FoodService {
   }
 
   async getAllFood() {
-    const foodRaw = await this.foodRepository.find();
+    const foodRaw = await this.foodRepository.find({
+      where: {
+        status: 'ACTIVE',
+      },
+    });
     const foods = await Promise.all(
       foodRaw.map(async (item) => {
         const reviews = await this.reviewService.getReviewsByFoodId({
@@ -80,6 +84,7 @@ export class FoodService {
     const foodRaw = await this.foodRepository.find({
       where: {
         isFood: true,
+        status: 'ACTIVE',
       },
     });
     const foods = await Promise.all(
@@ -115,6 +120,7 @@ export class FoodService {
     const foodRaw = await this.foodRepository.find({
       where: {
         isFood: false,
+        status: 'ACTIVE',
       },
     });
     const foods = await Promise.all(
@@ -150,6 +156,7 @@ export class FoodService {
     const foodRaw = await this.foodRepository.find({
       where: {
         price: LessThan(50000),
+        status: 'ACTIVE',
       },
     });
     const foods = await Promise.all(
@@ -182,7 +189,11 @@ export class FoodService {
   }
 
   async getHighRatingFoods(): Promise<any> {
-    const foodRaw = await this.foodRepository.find();
+    const foodRaw = await this.foodRepository.find({
+      where: {
+        status: 'ACTIVE',
+      },
+    });
     const foods = await Promise.all(
       foodRaw.map(async (item) => {
         const reviews = await this.reviewService.getReviewsByFoodId({
@@ -222,6 +233,7 @@ export class FoodService {
       where: {
         name: Like(`%${name}%`),
         isDraft: false,
+        status: 'ACTIVE',
       },
     });
 
@@ -278,6 +290,7 @@ export class FoodService {
     const foodRaw = await this.foodRepository.find({
       where: {
         restaurantId: restaurantId,
+        status: 'ACTIVE',
       },
     });
     if (foodRaw.length === 0) {
@@ -321,6 +334,7 @@ export class FoodService {
     const foodRaw = await this.foodRepository.findOne({
       where: {
         id: id,
+        status: 'ACTIVE',
       },
     });
     const reviews = await this.reviewService.getReviewsByFoodId({
@@ -348,6 +362,7 @@ export class FoodService {
     };
   }
 
+  // Admin
   async getAllListFood(): Promise<any> {
     const foods = await this.foodRepository.find();
     return {

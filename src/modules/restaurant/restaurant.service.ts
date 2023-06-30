@@ -24,7 +24,10 @@ export class RestaurantService {
   async getRestaurantById(param): Promise<any> {
     const { id } = param;
     const restaurantRaw = await this.restaurantRepository.findOne({
-      where: { id: id },
+      where: {
+        id: id,
+        status: 'ACTIVE',
+      },
     });
     const reviews = await this.reviewService.getReviewsByRestaurantId({
       restaurantId: id,
@@ -55,7 +58,11 @@ export class RestaurantService {
   }
 
   async getAllRestaurant(): Promise<V2GetRestaurantList> {
-    const restaurantsRaw = await this.restaurantRepository.find();
+    const restaurantsRaw = await this.restaurantRepository.find({
+      where: {
+        status: 'ACTIVE',
+      },
+    });
     const restaurants: V2Restaurant[] = await Promise.all(
       restaurantsRaw.map(async (item) => {
         const reviews = await this.reviewService.getReviewsByRestaurantId({
@@ -86,6 +93,7 @@ export class RestaurantService {
       where: {
         name: Like(`%${name}%`),
         isDraft: false,
+        status: 'ACTIVE',
       },
     });
 
@@ -114,6 +122,7 @@ export class RestaurantService {
     return results;
   }
 
+  // ADMIN
   async getAllListRestaurant(): Promise<any> {
     const restaurants = await this.restaurantRepository.find();
     return {
