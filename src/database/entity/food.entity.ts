@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Review } from './review.entity';
 import { Restaurant } from './restaurant.entity';
+import { EStatus } from 'src/core/enum/default.enum';
 
 @Entity('food')
 export class Food {
@@ -33,9 +34,9 @@ export class Food {
     name: 'status',
     type: 'varchar',
     length: 100,
-    default: 'INACTIVE',
+    default: EStatus.INACTIVE,
   })
-  status: string;
+  status: EStatus;
 
   @Column({ name: 'is_food', type: 'boolean' })
   isFood: boolean;

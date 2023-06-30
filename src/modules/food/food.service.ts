@@ -10,6 +10,7 @@ import {
   V1FoodDetailByName,
 } from './entities/get-foods-by-name.entity';
 import { V1PostFoodsDto } from './dto/post-foods.dto';
+import { EStatus } from 'src/core/enum/default.enum';
 @Injectable()
 export class FoodService {
   constructor(
@@ -48,7 +49,7 @@ export class FoodService {
   async getAllFood() {
     const foodRaw = await this.foodRepository.find({
       where: {
-        status: 'ACTIVE',
+        status: EStatus.ACTIVE,
       },
     });
     const foods = await Promise.all(
@@ -84,7 +85,7 @@ export class FoodService {
     const foodRaw = await this.foodRepository.find({
       where: {
         isFood: true,
-        status: 'ACTIVE',
+        status: EStatus.ACTIVE,
       },
     });
     const foods = await Promise.all(
@@ -120,7 +121,7 @@ export class FoodService {
     const foodRaw = await this.foodRepository.find({
       where: {
         isFood: false,
-        status: 'ACTIVE',
+        status: EStatus.ACTIVE,
       },
     });
     const foods = await Promise.all(
@@ -156,7 +157,7 @@ export class FoodService {
     const foodRaw = await this.foodRepository.find({
       where: {
         price: LessThan(50000),
-        status: 'ACTIVE',
+        status: EStatus.ACTIVE,
       },
     });
     const foods = await Promise.all(
@@ -191,7 +192,7 @@ export class FoodService {
   async getHighRatingFoods(): Promise<any> {
     const foodRaw = await this.foodRepository.find({
       where: {
-        status: 'ACTIVE',
+        status: EStatus.ACTIVE,
       },
     });
     const foods = await Promise.all(
@@ -233,7 +234,7 @@ export class FoodService {
       where: {
         name: Like(`%${name}%`),
         isDraft: false,
-        status: 'ACTIVE',
+        status: EStatus.ACTIVE,
       },
     });
 
@@ -290,7 +291,7 @@ export class FoodService {
     const foodRaw = await this.foodRepository.find({
       where: {
         restaurantId: restaurantId,
-        status: 'ACTIVE',
+        status: EStatus.ACTIVE,
       },
     });
     if (foodRaw.length === 0) {
@@ -334,7 +335,7 @@ export class FoodService {
     const foodRaw = await this.foodRepository.findOne({
       where: {
         id: id,
-        status: 'ACTIVE',
+        status: EStatus.ACTIVE,
       },
     });
     const reviews = await this.reviewService.getReviewsByFoodId({

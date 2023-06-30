@@ -13,6 +13,7 @@ import {
 } from './entities/get-restaurant-list.entity';
 import { ReviewService } from '../review/review.service';
 import { V1PostRestaurantBodyDto } from './dto/post-restaurants.dto';
+import { EStatus } from 'src/core/enum/default.enum';
 
 @Injectable()
 export class RestaurantService {
@@ -26,7 +27,7 @@ export class RestaurantService {
     const restaurantRaw = await this.restaurantRepository.findOne({
       where: {
         id: id,
-        status: 'ACTIVE',
+        status: EStatus.ACTIVE,
       },
     });
     const reviews = await this.reviewService.getReviewsByRestaurantId({
@@ -60,7 +61,7 @@ export class RestaurantService {
   async getAllRestaurant(): Promise<V2GetRestaurantList> {
     const restaurantsRaw = await this.restaurantRepository.find({
       where: {
-        status: 'ACTIVE',
+        status: EStatus.ACTIVE,
       },
     });
     const restaurants: V2Restaurant[] = await Promise.all(
@@ -93,7 +94,7 @@ export class RestaurantService {
       where: {
         name: Like(`%${name}%`),
         isDraft: false,
-        status: 'ACTIVE',
+        status: EStatus.ACTIVE,
       },
     });
 

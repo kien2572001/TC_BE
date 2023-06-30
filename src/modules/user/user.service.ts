@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
-import { ERole } from 'src/core/enum/default.enum';
+import { ERole, EStatus } from 'src/core/enum/default.enum';
 import { ErrorMessage } from 'src/core/enum/error.enum';
 import { User } from 'src/database/entity/user.entity';
 import {
@@ -59,6 +59,13 @@ export class UserService {
     if (!user) {
       throw new HttpException(
         ErrorMessage.ACCOUNT_NOT_EXISTS,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    if (user.status !== EStatus.ACTIVE) {
+      throw new HttpException(
+        ErrorMessage.ACCOUNT_IS_BLOCKED,
         HttpStatus.BAD_REQUEST,
       );
     }
