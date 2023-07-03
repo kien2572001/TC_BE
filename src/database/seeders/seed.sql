@@ -3,6 +3,11 @@ DELETE FROM food;
 DELETE FROM restaurant;
 DELETE FROM users;
 
+ALTER SEQUENCE users_id_seq RESTART WITH 8;
+ALTER SEQUENCE restaurant_id_seq RESTART WITH 14;
+ALTER SEQUENCE food_id_seq RESTART WITH 41;
+ALTER SEQUENCE review_id_seq RESTART WITH 31;
+
 -- MK 123456abc
 INSERT INTO users (id,user_name, email, password, avatar, role)
 VALUES
