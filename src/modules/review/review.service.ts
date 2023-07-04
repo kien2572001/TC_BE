@@ -33,6 +33,9 @@ export class ReviewService {
     const reviewRaw = await this.reviewRepository.find({
       where: { restaurantId: restaurantId },
     });
+    reviewRaw.sort((a, b) => {
+      return b.createdAt.getTime() - a.createdAt.getTime();
+    });
     const ratingSum = reviewRaw.reduce((acc, cur) => {
       return acc + cur.rate;
     }, 0);
@@ -68,7 +71,9 @@ export class ReviewService {
     const reviewRaw = await this.reviewRepository.find({
       where: { foodId: foodId },
     });
-
+    reviewRaw.sort((a, b) => {
+      return b.createdAt.getTime() - a.createdAt.getTime();
+    });
     const ratingSum = reviewRaw.reduce((acc, cur) => {
       return acc + cur.rate;
     }, 0);
@@ -129,11 +134,13 @@ export class ReviewService {
     const { rate, content } = body;
     const { restaurantId } = param;
     const userId = req.user.id;
+    const user = await this.userService.getUserById(userId);
     const newRestaurantReview = this.reviewRepository.save({
       rate,
       content,
       restaurantId,
       userId,
+      userAvatar: user.avatar,
     });
     return newRestaurantReview;
   }
@@ -142,11 +149,13 @@ export class ReviewService {
     const { rate, content } = body;
     const { foodId } = param;
     const userId = req.user.id;
+    const user = await this.userService.getUserById(userId);
     const newRestaurantReview = this.reviewRepository.save({
       rate,
       content,
       foodId,
       userId,
+      userAvatar: user.avatar,
     });
     return newRestaurantReview;
   }
