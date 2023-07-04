@@ -141,6 +141,7 @@ export class ReviewService {
       restaurantId,
       userId,
       userAvatar: user.avatar,
+      userName: user.name,
     });
     return newRestaurantReview;
   }
@@ -156,6 +157,7 @@ export class ReviewService {
       foodId,
       userId,
       userAvatar: user.avatar,
+      userName: user.name,
     });
     return newRestaurantReview;
   }
