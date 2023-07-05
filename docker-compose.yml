@@ -23,7 +23,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: vuong2001
     ports: 
-      - '5432:5432'
+      - 5434:5432
     volumes:
       - docker-nest-postgres:/var/lib/postgresql/data
 
