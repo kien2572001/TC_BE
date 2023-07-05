@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
-import { ERole } from 'src/core/enum/default.enum';
+import { ERole, EStatus } from 'src/core/enum/default.enum';
 import { ErrorMessage } from 'src/core/enum/error.enum';
 import { User } from 'src/database/entity/user.entity';
 import {
@@ -12,7 +12,7 @@ import {
   IResponseAuthUser,
   IResponseRefreshToken,
 } from 'src/global/auth/interface/auth.interface';
-import { DeepPartial, EntityManager, Repository } from 'typeorm';
+import { DeepPartial, EntityManager, Like, Repository } from 'typeorm';
 import { VRefreshToken } from './dto/refresh-token.dto';
 import { VUserLoginDto } from './dto/user-login.dto';
 import { VUserRegisterDto } from './dto/user-register.dto';
@@ -59,6 +59,13 @@ export class UserService {
     if (!user) {
       throw new HttpException(
         ErrorMessage.ACCOUNT_NOT_EXISTS,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    if (user.status !== EStatus.ACTIVE) {
+      throw new HttpException(
+        ErrorMessage.ACCOUNT_IS_BLOCKED,
         HttpStatus.BAD_REQUEST,
       );
     }
@@ -149,7 +156,61 @@ export class UserService {
   }
 
   async getUserById(id: number) {
-    return this.userRepository.findOne({ where: { id } });
+    const user = await this.userRepository.findOne({ where: { id } });
+    return user;
+  }
+  async getProfileUser(req) {
+    const { id } = req.user;
+    const userRaw = await this.userRepository.findOne({ where: { id } });
+    if (!userRaw) {
+      return {
+        message: 'Not found user',
+      };
+    }
+    const user = {
+      id: userRaw.id,
+      name: userRaw.name,
+      email: userRaw.email,
+      avatar: userRaw.avatar,
+      password: userRaw.password,
+    };
+    const result = {
+      message: 'Success',
+      user,
+    };
+    return result;
+  }
+
+  async updateProfileUser(body, req) {
+    const { id } = req.user;
+    const { name, email, avatar, password } = body;
+    const salt = await bcrypt.genSalt();
+    let hashPassword = null;
+    if (password) hashPassword = await bcrypt.hash(password, salt);
+
+    if (!id) {
+      return {
+        message: 'Failed',
+      };
+    }
+
+    const user = await this.userRepository.findOne({ where: { id } });
+
+    if (user) {
+      if (name) user.name = name;
+      if (email) user.email = email;
+      if (avatar) user.avatar = avatar;
+      if (password) user.password = hashPassword;
+      await this.userRepository.save(user);
+      return {
+        message: 'Success',
+        user,
+      };
+    }
+
+    return {
+      message: 'Failed',
+    };
   }
 
   async updateUserById(
@@ -161,5 +222,55 @@ export class UserService {
       ? entityManager.getRepository(User)
       : this.userRepository;
     return await userRepository.update(id, data);
+  }
+
+  //Admin
+  async getAllListUser(): Promise<any> {
+    const users = await this.userRepository.find({
+      where: {
+        role: ERole.USER,
+      },
+    });
+    return {
+      users,
+    };
+  }
+
+  async searchUser(query): Promise<any> {
+    const { name } = query;
+    const usersRaw = await this.userRepository.find({
+      where: {
+        name: Like(`%${name}%`),
+        role: ERole.USER,
+      },
+    });
+
+    return {
+      users: usersRaw,
+    };
+  }
+
+  async updateStatusUser(param, body): Promise<any> {
+    const { id } = param;
+    const { status } = body;
+
+    const user = await this.userRepository.findOne({
+      where: {
+        id: id,
+        role: ERole.USER,
+      },
+    });
+
+    if (user) {
+      user.status = status;
+      await this.userRepository.save(user);
+      return {
+        message: 'Update user status success',
+      };
+    }
+
+    return {
+      message: 'User not found',
+    };
   }
 }

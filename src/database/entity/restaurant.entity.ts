@@ -1,5 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Review } from './review.entity';
+import { Food } from './food.entity';
+import { EStatus } from 'src/core/enum/default.enum';
 
 @Entity('restaurant')
 export class Restaurant {
@@ -15,6 +17,14 @@ export class Restaurant {
   @Column({ name: 'photo_url', type: 'varchar', length: 256, nullable: true })
   photoUrl: string;
 
+  @Column({
+    name: 'status',
+    type: 'varchar',
+    length: 100,
+    default: EStatus.INACTIVE,
+  })
+  status: EStatus;
+
   @Column({ name: 'active_time', type: 'varchar', length: 100 })
   activeTime: string;
 
@@ -23,4 +33,7 @@ export class Restaurant {
 
   @OneToMany(() => Review, (review) => review.restaurant)
   reviews: Review[];
+
+  @OneToMany(() => Food, (food) => food.restaurant)
+  foods: Food[];
 }

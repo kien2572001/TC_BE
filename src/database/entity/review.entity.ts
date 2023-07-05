@@ -20,14 +20,28 @@ export class Review {
   @Column({ name: 'content', type: 'varchar', length: 256 })
   content: string;
 
-  @Column({ name: 'food_id', type: 'int' })
-  foodId: number;
+  @Column({ name: 'food_id', type: 'int', nullable: true })
+  foodId: number | null;
 
-  @Column({ name: 'restaurant_id', type: 'int' })
-  restaurantId: number;
+  @Column({ name: 'restaurant_id', type: 'int', nullable: true })
+  restaurantId: number | null;
 
   @Column({ name: 'user_id', type: 'int' })
   userId: number;
+
+  @Column({
+    name: 'created_at',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createdAt: Date;
+
+  @Column({
+    name: 'updated_at',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
 
   @ManyToOne(() => User, (user) => user.reviews)
   @JoinColumn({ name: 'user_id' })

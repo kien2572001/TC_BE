@@ -1,19 +1,41 @@
 import { V1GetRestaurantByNameParamDto } from './dto/get-restaurant-by-name.dto';
-import { Controller, Get, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Query,
+  Param,
+  Inject,
+  forwardRef,
+  Put,
+} from '@nestjs/common';
 import { Public } from 'src/decorator/public.decorator';
 import { RestaurantService } from './restaurant.service';
 import { V1GetRestaurantByName } from './entities/get-restaurant-by-name.entity';
+import { V2GetRestaurantList } from './entities/get-restaurant-list.entity';
 import {
   ApiBearerAuth,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { V1PostRestaurantBodyDto } from './dto/post-restaurants.dto';
+import { FoodService } from '../food/food.service';
+import { ReviewService } from '../review/review.service';
+import { ERole } from 'src/core/enum/default.enum';
+import { Roles } from 'src/decorator/roles.decorator';
 @ApiBearerAuth()
 @ApiTags('API Restaurants')
 @Controller('restaurants')
 export class RestaurantController {
-  constructor(private readonly restaurantService: RestaurantService) {}
+  constructor(
+    private readonly restaurantService: RestaurantService,
+    @Inject(forwardRef(() => FoodService))
+    private readonly foodService: FoodService,
+    @Inject(forwardRef(() => ReviewService))
+    private readonly reviewService: ReviewService,
+  ) {}
 
   @Public()
   @Get()
@@ -24,10 +46,19 @@ export class RestaurantController {
   }
 
   @Public()
+  @Post()
+  @ApiBearerAuth('BearerAuth')
+  @ApiOperation({ summary: 'Create restaurant' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  createRestaurant(@Body() body: V1PostRestaurantBodyDto) {
+    return this.restaurantService.createRestaurant(body);
+  }
+
+  @Public()
   @Get('/all')
   @ApiOperation({ summary: 'Get all restaurant' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  getAllRestaurant(): Promise<V1GetRestaurantByName> {
+  getAllRestaurant(): Promise<V2GetRestaurantList> {
     return this.restaurantService.getAllRestaurant();
   }
 
@@ -44,5 +75,54 @@ export class RestaurantController {
     @Query() query: V1GetRestaurantByNameParamDto,
   ): Promise<V1GetRestaurantByName> {
     return this.restaurantService.getRestaurantByName(query);
+  }
+
+  //Restaurant detail
+  @Public()
+  @Get('/detail/:id')
+  @ApiOperation({ summary: 'Get restaurant detail by id' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  getRestaurantById(@Param() param): Promise<any> {
+    return this.restaurantService.getRestaurantById(param);
+  }
+
+  @Public()
+  @Get('/detail/menu/:restaurantId')
+  @ApiOperation({ summary: 'Get restaurant menu by id' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  getFoodsByRestaurantId(@Param() param): Promise<any> {
+    return this.foodService.getFoodsByRestaurantId(param);
+  }
+
+  @Public()
+  @Get('/detail/reviews/:restaurantId')
+  @ApiOperation({ summary: 'Get review by restaurant id' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  getReviewsByRestaurantId(@Param() param) {
+    return this.reviewService.getReviewsByRestaurantId(param);
+  }
+
+  @Roles([ERole.ADMIN])
+  @Get('/admin/all')
+  @ApiOperation({ summary: 'Get all restaurant' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  getAllListRestaurant(): Promise<any> {
+    return this.restaurantService.getAllListRestaurant();
+  }
+
+  @Roles([ERole.ADMIN])
+  @Get('/admin/search')
+  @ApiOperation({ summary: 'Get all restaurant' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  searchRestaurant(@Query() query: any): Promise<any> {
+    return this.restaurantService.searchRestaurant(query);
+  }
+
+  @Roles([ERole.ADMIN])
+  @Put('/admin/update/:id')
+  @ApiOperation({ summary: 'Update status restaurant' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  updateStatusRestaurant(@Param() param: any, @Body() body: any): Promise<any> {
+    return this.restaurantService.updateStatusRestaurant(param, body);
   }
 }

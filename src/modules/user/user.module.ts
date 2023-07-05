@@ -24,5 +24,6 @@ import { EConfiguration } from 'src/core/config/configuration.config';
   ],
   controllers: [UserController],
   providers: [UserService, JwtStrategy],
+  exports: [UserService],
 })
 export class UserModule {}

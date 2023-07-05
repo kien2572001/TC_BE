@@ -1,4 +1,4 @@
-import { Module, Res } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -11,6 +11,9 @@ import { UserModule } from './modules/user/user.module';
 import { RestaurantModule } from './modules/restaurant/restaurant.module';
 import { FoodModule } from './modules/food/food.module';
 import { ReviewModule } from './modules/review/review.module';
+import { SearchModule } from './modules/search/search.module';
+import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
+import { DatabaseSeeder } from './database/seeders/database.seed';
 
 @Module({
   imports: [
@@ -28,7 +31,7 @@ import { ReviewModule } from './modules/review/review.module';
         password: configService.get(EConfiguration.DB_POSTGRESQL_PASSWORD),
         database: configService.get(EConfiguration.DB_POSTGRESQL_NAME),
         entities: [__dirname + '/**/*.entity.{ts,js}'],
-        synchronize: false,
+        synchronize: true,
         autoLoadEntities: true,
         migrations: ['src/migration/**/*.ts'],
         subscribers: ['src/subscriber/**/*.ts'],
@@ -38,9 +41,12 @@ import { ReviewModule } from './modules/review/review.module';
     RestaurantModule,
     FoodModule,
     ReviewModule,
+    SearchModule,
+    CloudinaryModule,
   ],
   controllers: [AppController],
   providers: [
+    DatabaseSeeder,
     AppService,
     {
       provide: APP_GUARD,

@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Expose, Type } from 'class-transformer';
-import { IsBoolean, IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class V1Restaurant {
   @ApiProperty({
@@ -47,15 +47,6 @@ export class V1Restaurant {
   @Expose()
   @IsString()
   activeTime: string;
-
-  @ApiProperty({
-    type: 'boolean',
-    description: 'Is restaurant draft',
-    format: 'string',
-  })
-  @Expose()
-  @IsBoolean()
-  isDraft: boolean;
 }
 
 export class V1GetRestaurantByName {
